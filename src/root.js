@@ -1,11 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux'
-import { createStore } from 'redux'
-import reducers from './state/reducers'
-import App from './routes/App/App.js';
+import createHistory from 'history/createBrowserHistory';
+import createStore from './state/createStore';
+import App from './routes/App/App';
 
-const store = createStore(reducers);
+const history = createHistory();
+const store = createStore(history);
 
 function render(Component) {
   ReactDOM.render(
@@ -19,8 +20,8 @@ function render(Component) {
 render(App);
 
 if (module.hot) {
-  module.hot.accept('./routes/App', () => {
-    const UpdatedApp = require('./routes/App/App.js').default;
+  module.hot.accept('./routes/App/App', () => {
+    const UpdatedApp = require('./routes/App/App').default;
     render(UpdatedApp);
   });
 }

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import RouteSwitch from '../RouteSwitch';
 import Welcome from '../Welcome/Welcome';
 import Shop from '../Shop/Shop';
 import Checkout from '../Checkout/Checkout';
@@ -20,10 +21,14 @@ class _App extends Component {
 
   render(){
     const {
+      location
     } = this.props;
+
+    console.log("LOCATION:", location );
 
     return (
       <div id='main-app'>
+        HELLO I'M THE APP
         <RouteSwitch
             routes={{
               WELCOME: Welcome,

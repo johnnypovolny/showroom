@@ -1,5 +1,3 @@
-import * as routeHandlers from './routeHandlers';
-
 const routes = {
   WELCOME: {
     path: '/',

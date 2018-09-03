@@ -1,14 +1,16 @@
-import routes from 'routes';
+import routes from '../routes/index';
 import { createStore as _createStore } from 'redux'
+import { connectRoutes } from 'redux-first-router';
 import reducers from './reducers';
 
-const createStore = () => {
+const createStore = (history) => {
   const {
     reducer: location,
-    thunk: routeThunk
   } = connectRoutes(history, routes);
 
   const store = _createStore(reducers({ location }));
+
+  console.log('STORE CREATED!');
 
   if (module.hot) {
     module.hot.accept('./reducers', () => {
@@ -16,10 +18,7 @@ const createStore = () => {
     });
   }
 
-  return {
-    store,
-    thunk: routeThunk
-  };
+  return store
 };
 
 export default createStore;

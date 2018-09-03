@@ -1,0 +1,43 @@
+{
+  "name": "Inkwell",
+  "description": "Inkwell is a pre-print automation for Nike Layered Air",
+  "author": "Nike Innovation Tech",
+  "license": "Property of Advanced Innovation Technology division, Nike, Inc. Usage by external parties prohibitied.",
+  "private": true,
+  "version": "1.1.0",
+  "main": "root.js",
+  "scripts": {
+    "build": "webpack",
+    "dev": "webpack-dev-server --https --mode development",
+    "lint": "eslint -c .eslintrc.json bin src webpack"
+  },
+  "dependencies": {
+    "eslint-plugin-import": "^2.13.0",
+    "path": "^0.12.7",
+    "prop-types": "^15.6.2",
+    "ramda": "^0.25.0",
+    "react": "^16.4.1",
+    "react-dom": "^16.4.1",
+    "react-redux": "^5.0.7",
+    "redux": "^4.0.0",
+    "redux-first-router": "0.0.16-next",
+    "webpack-cli": "^3.0.8"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-eslint": "^8.2.5",
+    "babel-loader": "^7.1.5",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-polyfill": "^6.3.14",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-latest": "^6.24.1",
+    "babel-preset-react": "^6.3.13",
+    "css-loader": "^1.0.0",
+    "file-loader": "^1.1.11",
+    "react-hot-loader": "^4.3.3",
+    "style-loader": "^0.21.0",
+    "url-loader": "^1.0.1",
+    "webpack": "^4.16.0",
+    "webpack-dev-server": "^3.1.4"
+  }
+}

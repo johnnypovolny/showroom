@@ -24,11 +24,8 @@ class _App extends Component {
       location
     } = this.props;
 
-    console.log("LOCATION:", location );
-
     return (
       <div id='main-app'>
-        HELLO I'M THE APP
         <RouteSwitch
             routes={{
               WELCOME: Welcome,

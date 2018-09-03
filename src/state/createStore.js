@@ -1,16 +1,18 @@
 import routes from '../routes/index';
-import { createStore as _createStore } from 'redux'
+import { combineReducers, createStore as _createStore, applyMiddleware, compose } from 'redux'
+
 import { connectRoutes } from 'redux-first-router';
 import reducers from './reducers';
 
 const createStore = (history) => {
   const {
     reducer: location,
+    middleware,
+    enhancer
   } = connectRoutes(history, routes);
 
-  const store = _createStore(reducers({ location }));
-
-  console.log('STORE CREATED!');
+  const middlewares = applyMiddleware(middleware);
+  const store = _createStore(reducers({location}), compose(enhancer, middlewares));
 
   if (module.hot) {
     module.hot.accept('./reducers', () => {

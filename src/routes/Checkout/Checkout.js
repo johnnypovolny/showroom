@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { goToShop } from '../index';
 import * as checkoutActions from '../../state/routes/checkout'
 import './Checkout.css';
 
@@ -9,22 +10,26 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = {
-  setCheckoutState: checkoutActions.setCheckoutState
+  setCheckoutState: checkoutActions.setCheckoutState,
+  goToShop: goToShop
 };
 
 class _Checkout extends Component {
   static propTypes = {
-    setCheckoutState: PropTypes.func.isRequired
+    setCheckoutState: PropTypes.func.isRequired,
+    goToShop: PropTypes.func.isRequired
   };
 
   render(){
     const {
-      checkout
+      checkout,
+      goToShop
     } = this.props;
 
     return (
       <div id='checkout-screen'>
         CHECKOUT
+        <button onClick={goToShop}>Continue Shopping</button>
       </div>
     )
   }

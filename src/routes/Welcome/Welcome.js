@@ -6,7 +6,8 @@ import * as welcomeActions from '../../state/routes/welcome'
 import './Welcome.css';
 
 const mapStateToProps = (state) => ({
-  welcome: state.routes.welcome
+  welcome: state.routes.welcome,
+  unity: state.unity
 });
 
 const mapDispatchToProps = {
@@ -23,12 +24,17 @@ class _Welcome extends Component {
   render(){
     const {
       welcome,
-      goToShop
+      goToShop,
+      unity: {
+        isLoading
+      }
     } = this.props;
+
+    if (isLoading) return <div id='loading-message'>LOADING 3D ENGINE...</div>;
 
     return (
       <div id='welcome-screen'>
-        WELCOME
+        <div>Welcome to the Snowroom</div>
         <button onClick={goToShop}>Start Shopping</button>
       </div>
     )

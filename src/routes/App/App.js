@@ -5,6 +5,7 @@ import RouteSwitch from '../RouteSwitch';
 import Welcome from '../Welcome/Welcome';
 import Shop from '../Shop/Shop';
 import Checkout from '../Checkout/Checkout';
+import UnityMaster from '../../components/UnityMaster/UnityMaster';
 import './App.css';
 
 const mapStateToProps = (state) => ({
@@ -26,6 +27,7 @@ class _App extends Component {
 
     return (
       <div id='main-app'>
+        <UnityMaster unityVisibleRoute={location.type === 'SHOP'} />
         <RouteSwitch
             routes={{
               WELCOME: Welcome,

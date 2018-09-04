@@ -29,7 +29,7 @@ class _Shop extends Component {
     return (
       <div id='shop-screen'>
         SHOP
-        <button onClick={goToCheckout}>Start Shopping</button>
+        <button onClick={goToCheckout}>Checkout</button>
       </div>
     )
   }

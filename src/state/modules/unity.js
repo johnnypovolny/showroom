@@ -3,29 +3,29 @@ import { set } from '../../utils/objectUtils';
 export const RESET_UNITY_STATE = 'unity/RESET_STATE';
 export const SET_UNITY_STATE = 'unity/SET';
 
-export const resetState = () => ({
+export const resetUnityState = () => ({
   type: RESET_UNITY_STATE
 });
 
-export const show = () => ({
+export const showUnity = () => ({
   type: SET_UNITY_STATE,
   key: 'isVisible',
   value: true
 });
 
-export const hide = () => ({
+export const hideUnity = () => ({
   type: SET_UNITY_STATE,
   key: 'isVisible',
   value: false
 });
 
-export const setPosition = (position) => ({
+export const setUnityPosition = (position) => ({
   type: SET_UNITY_STATE,
   key: 'position',
   value: position
 });
 
-export const setMaster = (masterInstance) => ({
+export const setUnityMaster = (masterInstance) => ({
   type: SET_UNITY_STATE,
   key: 'master',
   value: masterInstance

@@ -1,9 +1,9 @@
 #loading-message{
     margin: 20% 0 0 0;
-    -webkit-animation: flickerAnimation 1.5s infinite;
-    -moz-animation: flickerAnimation 1.5s infinite;
-    -o-animation: flickerAnimation 1.5s infinite;
-    animation: flickerAnimation 1.5s infinite;
+    -webkit-animation: flickerAnimation 2s infinite;
+    -moz-animation: flickerAnimation 2s infinite;
+    -o-animation: flickerAnimation 2s infinite;
+    animation: flickerAnimation 2s infinite;
 }
 
 @keyframes flickerAnimation {

@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import glamorous from 'glamorous';
 import * as unityActions from '../../state/modules/unity';
-
 import { styleFunction } from './UnityMaster.style';
 
 export const mapStateToProps = (state) => ({
@@ -12,11 +11,11 @@ export const mapStateToProps = (state) => ({
 });
 
 export const mapDispatchToProps = {
-  resetState: unityActions.resetState,
-  setMaster: unityActions.setMaster,
+  resetUnityState: unityActions.resetUnityState,
+  setUnityMaster: unityActions.setUnityMaster,
   unityIsLoading: unityActions.unityIsLoading,
   unityIsReady: unityActions.unityIsReady,
-  show: unityActions.show,
+  showUnity: unityActions.showUnity,
 };
 
 class _UnityMaster extends React.Component {
@@ -44,7 +43,7 @@ class _UnityMaster extends React.Component {
   }
 
   componentWillUnmount() {
-    this.props.resetState();
+    this.props.resetUnityState();
   }
 
   startUnity = () => {
@@ -52,7 +51,7 @@ class _UnityMaster extends React.Component {
     const master = window.UnityLoader.instantiate('unity-master', '/unity/unity.json');
 
     window.addEventListener('resize', this.resizeUnity);
-    this.props.setMaster(master);
+    this.props.setUnityMaster(master);
   };
 
   resizeUnity = () => {
@@ -71,14 +70,16 @@ class _UnityMaster extends React.Component {
 
   initializeUnity = () => {
     const {
-      show
+      showUnity,
+      unityIsLoading,
+      unityIsReady,
     } = this.props;
     const script = document.createElement('script');
 
     window.UnityStarted = () => {
-      this.props.unityIsReady();
-      this.props.unityIsLoading(false);
-      show();
+      unityIsReady();
+      unityIsLoading(false);
+      showUnity();
       console.log('UNITY IS READY')
     };
     window.objLoaded = () => console.log('OBJ LOADED');

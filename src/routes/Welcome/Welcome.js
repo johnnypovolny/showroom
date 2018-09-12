@@ -17,6 +17,8 @@ const mapDispatchToProps = {
 
 class _Welcome extends Component {
   static propTypes = {
+    welcome: PropTypes.object.isRequired,
+    unity: PropTypes.object.isRequired,
     setWelcomeState: PropTypes.func.isRequired,
     goToShop: PropTypes.func.isRequired,
   };

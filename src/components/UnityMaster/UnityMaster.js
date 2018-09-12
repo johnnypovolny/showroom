@@ -15,19 +15,19 @@ export const mapDispatchToProps = {
   setUnityMaster: unityActions.setUnityMaster,
   unityIsLoading: unityActions.unityIsLoading,
   unityIsReady: unityActions.unityIsReady,
-  showUnity: unityActions.showUnity,
+  showUnity: unityActions.showUnity
 };
 
 class _UnityMaster extends React.Component {
   static propTypes = {
-    unityIsLoading: PropTypes.func.isRequired,
-    resetState: PropTypes.func.isRequired,
-    show: PropTypes.func.isRequired,
-    setMaster: PropTypes.func.isRequired,
     unity: PropTypes.object.isRequired,
+    resetUnityState: PropTypes.func.isRequired,
+    setUnityMaster: PropTypes.func.isRequired,
+    unityIsLoading: PropTypes.func.isRequired,
     unityIsReady: PropTypes.func.isRequired,
-    className: PropTypes.string.isRequired,
-    unityVisibleRoute: PropTypes.bool.isRequired
+    showUnity: PropTypes.func.isRequired,
+    unityVisibleRoute: PropTypes.bool.isRequired,
+    className: PropTypes.string.isRequired
   };
 
   componentWillMount() {
@@ -74,12 +74,17 @@ class _UnityMaster extends React.Component {
       unityIsLoading,
       unityIsReady,
     } = this.props;
+    const {
+      unityMaster
+    } = this;
+
     const script = document.createElement('script');
 
     window.UnityStarted = () => {
       unityIsReady();
       unityIsLoading(false);
       showUnity();
+      unityMaster.style.backgroundColor = 'transparent';
       console.log('UNITY IS READY')
     };
     window.objLoaded = () => console.log('OBJ LOADED');

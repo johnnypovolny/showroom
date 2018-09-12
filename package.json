@@ -12,6 +12,7 @@
     "lint": "eslint -c .eslintrc.json bin src webpack"
   },
   "dependencies": {
+    "axios": "^0.18.0",
     "eslint-plugin-import": "^2.13.0",
     "glamor": "^2.20.40",
     "glamorous": "^4.13.1",

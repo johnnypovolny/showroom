@@ -16,6 +16,8 @@ const mapDispatchToProps = {
 
 class _Checkout extends Component {
   static propTypes = {
+    checkout: PropTypes.object.isRequired,
+    unity: PropTypes.object.isRequired,
     setCheckoutState: PropTypes.func.isRequired,
     goToShop: PropTypes.func.isRequired
   };

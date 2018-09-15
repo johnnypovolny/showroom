@@ -2,9 +2,11 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import axios from 'axios';
-import { goToCheckout } from '../index';
+import UnityControls from '../../components/UnityControls/UnityControls';
 import * as shopActions from '../../state/routes/shop'
-import { loadModel } from '../../utils/unityUtils';
+import * as unityActions from '../../state/modules/unity'
+import { goToCheckout } from '../index';
+import { loadModel, sendMessage } from '../../utils/unityUtils';
 import './Shop.css';
 
 const mapStateToProps = (state) => ({
@@ -13,8 +15,10 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = {
+  goToCheckout: goToCheckout,
   setShopState: shopActions.setShopState,
-  goToCheckout: goToCheckout
+  setUnityControlMode: unityActions.setUnityControlMode,
+  toggleUnityViewAngle: unityActions.toggleUnityViewAngle
 };
 
 class _Shop extends Component {
@@ -23,6 +27,7 @@ class _Shop extends Component {
     unity: PropTypes.object.isRequired,
     setShopState: PropTypes.func.isRequired,
     goToCheckout: PropTypes.func.isRequired,
+    setUnityControlMode: PropTypes.func.isRequired
   };
 
   componentDidMount(){
@@ -44,18 +49,33 @@ class _Shop extends Component {
         const mtlUnti8Array = encoder.encode(mtlText);
 
         loadModel(master, objUnti8Array, 'snowboard', 'OBJ', mtlUnti8Array)
+
+
+        const shadowJSON = {
+          enabled: true,
+          distance: 0.5
+        };
+        sendMessage(master, 'SetShadows', shadowJSON);
     });
   }
 
   render(){
     const {
       shop,
-      goToCheckout
+      unity,
+      goToCheckout,
+      setUnityControlMode,
+      toggleUnityViewAngle
     } = this.props;
 
     return (
       <div id='shop-screen'>
         SHOP
+        <UnityControls
+          unity={unity}
+          setUnityControlMode={setUnityControlMode}
+          toggleUnityViewAngle={toggleUnityViewAngle}
+        />
         <button onClick={goToCheckout}>Checkout</button>
       </div>
     )

@@ -1,7 +1,7 @@
 import { set } from '../../utils/objectUtils';
 
-export const RESET_CHECKOUT_STATE = 'checkout/RESET_CHECKOUT_STATE';
-export const SET_CHECKOUT_STATE = 'checkout/SET_APP_STATE';
+const RESET_CHECKOUT_STATE = 'checkout/RESET_CHECKOUT_STATE';
+const SET_CHECKOUT_STATE = 'checkout/SET_APP_STATE';
 
 export const resetAppState = () => ({
   type: RESET_CHECKOUT_STATE

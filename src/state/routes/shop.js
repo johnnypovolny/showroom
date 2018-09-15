@@ -1,7 +1,7 @@
 import { set } from '../../utils/objectUtils';
 
-export const RESET_SHOP_STATE = 'shop/RESET_SHOP_STATE';
-export const SET_SHOP_STATE = 'shop/SET_SHOP_STATE';
+const RESET_SHOP_STATE = 'shop/RESET_SHOP_STATE';
+const SET_SHOP_STATE = 'shop/SET_SHOP_STATE';
 
 export const resetShopState = () => ({
   type: RESET_SHOP_STATE

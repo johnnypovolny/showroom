@@ -48,12 +48,12 @@ class _Shop extends Component {
         const objUnti8Array = encoder.encode(objText);
         const mtlUnti8Array = encoder.encode(mtlText);
 
-        loadModel(master, objUnti8Array, 'snowboard', 'OBJ', mtlUnti8Array)
+        loadModel(master, objUnti8Array, 'snowboard', 'OBJ', mtlUnti8Array);
 
 
         const shadowJSON = {
           enabled: true,
-          distance: 0.5
+          distance: .1
         };
         sendMessage(master, 'SetShadows', shadowJSON);
     });

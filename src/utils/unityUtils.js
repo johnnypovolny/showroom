@@ -42,7 +42,7 @@ export const loadModel = (unityMaster, objArray, objName, fileFormat, mtlArray) 
     const objJSON = {
       name: objName,
       fileFormat,
-      upAxis: 'X',
+      upAxis: 'Z',
       pointer: unityMaster.Module._malloc(objArray.byteLength),
       length: objArray.byteLength
     };

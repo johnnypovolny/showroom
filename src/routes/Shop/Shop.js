@@ -32,10 +32,9 @@ class _Shop extends Component {
 
   constructor(props){
     super(props);
-    this.state = {designNames: ['Design1', 'Design2']};
   }
 
-  showDesign = (designName) => {
+  showDesign = (index) => {
     const {
       unity: {
         master
@@ -43,10 +42,12 @@ class _Shop extends Component {
       setShopState
     } = this.props;
 
+    const designName = `Design${index}`;
+
     axios.get(`./designs/${designName}.png`, {responseType: 'arraybuffer'})
       .then((response) => {
         const imageUint8Array = new Uint8Array(response.data);
-        setShopState('displayedDesign', designName);
+        setShopState('displayedDesignIndex', index);
         loadTexture(master, imageUint8Array, 'snowboard')
       });
   };
@@ -57,7 +58,7 @@ class _Shop extends Component {
         master
       },
       shop: {
-        displayedDesign
+        displayedDesignIndex
       }
     } = this.props;
 
@@ -80,27 +81,50 @@ class _Shop extends Component {
           };
           sendMessage(master, 'SetShadows', shadowJSON);
 
-          if(!displayedDesign) this.showDesign('Design1');
-          else this.showDesign(displayedDesign)
+          this.showDesign(displayedDesignIndex)
         });
     });
   }
 
-  renderDotControls = () => {
-    const {
-      designNames
-    } = this.state;
+  renderDesignChangeControls = () => {
     const {
       shop: {
-        displayedDesign
+        designs,
+        displayedDesignIndex
       }
     } = this.props;
 
+    const designCount = designs.length;
+
+
     return(
-      designNames.map((designName) =>
-        <span key={designName}
+      <div id='design-change-controls-container'>
+        <button
+          className='design-change-arrow'
+          onClick = {() => {
+            const newIndex = displayedDesignIndex === 0 ? designCount - 1 : displayedDesignIndex - 1;
+            this.showDesign(newIndex)
+        }}>
+          <img className='arrow-image' src="./images/left-arrow.png" alt='Left'/>
+        </button>
+        {
+          designs.map((designIndex) =>
+            <span
+              key={`Design${designIndex}`}
+              id={displayedDesignIndex === designIndex ? 'dot-active' : null}
               className='dot'
-              onClick={() => this.showDesign(designName)}/>)
+              onClick= { () =>
+                this.showDesign(designIndex)}/>)
+        }
+        <button
+          className='design-change-arrow'
+          onClick = {() => {
+            const newIndex = (displayedDesignIndex + 1) % designCount;
+            this.showDesign(newIndex)
+        }}>
+          <img className='arrow-image' src="./images/right-arrow.png" alt='Right'/>
+        </button>
+      </div>
     );
   };
 
@@ -115,16 +139,13 @@ class _Shop extends Component {
 
     return (
       <div id='shop-screen'>
-        SHOP
         <UnityControls
           unity={unity}
           setUnityControlMode={setUnityControlMode}
           toggleUnityViewAngle={toggleUnityViewAngle}
         />
-        <div id='dots-container'>
-          {this.renderDotControls()}
-        </div>
-        <button onClick={goToCheckout}>Checkout</button>
+        {this.renderDesignChangeControls()}
+        <button id='go-to-checkout' onClick={goToCheckout}>Checkout</button>
       </div>
     )
   }

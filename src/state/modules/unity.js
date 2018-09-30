@@ -1,4 +1,4 @@
-import { set } from '../../utils/objectUtils';
+import { set, merge } from '../../utils/objectUtils';
 import { sendMessage } from "../../utils/unityUtils";
 
 const RESET_UNITY_STATE = 'unity/RESET_STATE';
@@ -90,20 +90,31 @@ const reducer = (state = initialState, action = {}) => {
       return set('unityControlMode', action.controlMode, state);
 
     case TOGGLE_UNITY_VIEW_ANGLE:
+      let controlMode = state.unityControlMode;
       switch (state.unityViewAngle) {
         case 'perspective':
-          sendMessage(action.unityMaster, 'PanMode');
+          if(controlMode === 'tumble'){
+            controlMode = 'pan';
+            sendMessage(action.unityMaster, 'PanMode');
+          }
+
           sendMessage(action.unityMaster, 'SetView', 'Top');
-          return set('unityViewAngle', 'top', state);
+          sendMessage(action.unityMaster, 'FrameView');
+          return merge(state, {unityViewAngle: 'top', unityControlMode: controlMode});
         case 'top':
-          sendMessage(action.unityMaster, 'PanMode');
+          if(controlMode === 'tumble'){
+            controlMode = 'pan';
+            sendMessage(action.unityMaster, 'PanMode');
+          }
+
           sendMessage(action.unityMaster, 'SetView', 'Bottom');
-          return set('unityViewAngle', 'bottom', state);
+          sendMessage(action.unityMaster, 'FrameView');
+          return merge(state, {unityViewAngle: 'bottom', unityControlMode: 'pan'});
         case 'bottom':
           sendMessage(action.unityMaster, 'TumbleMode');
           sendMessage(action.unityMaster, 'ResetOBJPosition');
           sendMessage(action.unityMaster, 'SetView', 'Perspective');
-          return set('unityViewAngle', 'perspective', state);
+          return merge(state, {unityViewAngle: 'perspective', unityControlMode: 'tumble'});
         default:
           return state;
       }

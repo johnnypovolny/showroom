@@ -39,13 +39,14 @@ class _Shop extends Component {
     const {
       unity: {
         master
-      }
+      },
+      setShopState
     } = this.props;
 
     axios.get(`./designs/${designName}.png`, {responseType: 'arraybuffer'})
       .then((response) => {
         const imageUint8Array = new Uint8Array(response.data);
-
+        setShopState('displayedDesign', designName);
         loadTexture(master, imageUint8Array, 'snowboard')
       });
   };
@@ -79,7 +80,8 @@ class _Shop extends Component {
           };
           sendMessage(master, 'SetShadows', shadowJSON);
 
-          this.showDesign(displayedDesign);
+          if(!displayedDesign) this.showDesign('Design1');
+          else this.showDesign(displayedDesign)
         });
     });
   }
@@ -96,11 +98,9 @@ class _Shop extends Component {
 
     return(
       designNames.map((designName) =>
-      { console.log(designName);
-        return (<span key={designName}
+        <span key={designName}
               className='dot'
               onClick={() => this.showDesign(designName)}/>)
-      })
     );
   };
 

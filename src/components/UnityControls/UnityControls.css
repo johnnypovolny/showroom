@@ -11,10 +11,10 @@
     background: transparent;
 }
 
-.unity-control-button :active {
+.unity-control-button:active {
   opacity: 0.5
 }
-.unity-control-button :disabled {
-  opacity: 0.5
+.unity-control-button:disabled {
+  opacity: 0.5;
 }
 

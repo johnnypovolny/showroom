@@ -60,11 +60,13 @@ class UnityControls extends Component {
   homeView = () => {
     const {
       unity: {
+        unityControlMode,
         master
       },
     } = this.props;
 
-    sendMessage(master, 'FrameView');
+    if(unityControlMode) sendMessage(master, 'ResetOBJPosition');
+    else sendMessage(master, 'FrameView');
   };
 
   render() {
@@ -78,19 +80,19 @@ class UnityControls extends Component {
     return (
       <div id="unity-controls-container">
         <button className="unity-control-button" onClick={() => this.toggleViewAngle()}>
-          <img src='/images/toggleView.png' alt="Toggle view" />
+          <img src='./images/toggleView.png' alt="Toggle view" />
         </button>
         <button className="unity-control-button" onClick={() => this.homeView()}>
-          <img src='/images/homeView.png' alt="Home view" />
+          <img src='./images/homeView.png' alt="Home view" />
         </button>
-        <button className="unity-control-button" onClick={() => this.tumble()} disabled={unityViewAngle !== 'Perspective'}>
-          <img src={unityControlMode === 'tumble' ? '/images/tumbleOn.png' : '/images/tumbleOff.png'} alt="Tumble mode" />
-        </button>
-        <button className="unity-control-button" onClick={() => this.zoom()}>
-          <img src={unityControlMode === 'zoom' ? '/images/dollyOn.png' : '/images/dollyOff.png'} alt="Zoom mode" />
+        <button className="unity-control-button" id={unityViewAngle !== 'perspective' ? 'control-disabled' : null} onClick={() => this.tumble()} disabled={unityViewAngle !== 'perspective'}>
+          <img src={unityControlMode === 'tumble' ? './images/tumbleOn.png' : './images/tumbleOff.png'} alt="Tumble mode" />
         </button>
         <button className="unity-control-button" onClick={() => this.pan()}>
-          <img src={unityControlMode === 'pan' ? '/images/panOn.png' : '/images/panOff.png'} alt="Pan mode" />
+          <img src={unityControlMode === 'pan' ? './images/panOn.png' : './images/panOff.png'} alt="Pan mode" />
+        </button>
+        <button className="unity-control-button" onClick={() => this.zoom()}>
+          <img src={unityControlMode === 'zoom' ? './images/dollyOn.png' : './images/dollyOff.png'} alt="Zoom mode" />
         </button>
       </div>
     );

@@ -6,7 +6,7 @@ import UnityControls from '../../components/UnityControls/UnityControls';
 import * as shopActions from '../../state/routes/shop'
 import * as unityActions from '../../state/modules/unity'
 import { goToCheckout } from '../index';
-import { loadModel, sendMessage } from '../../utils/unityUtils';
+import { loadModel, loadTexture, sendMessage } from '../../utils/unityUtils';
 import './Shop.css';
 
 const mapStateToProps = (state) => ({
@@ -30,14 +30,38 @@ class _Shop extends Component {
     setUnityControlMode: PropTypes.func.isRequired
   };
 
-  componentDidMount(){
+  constructor(props){
+    super(props);
+    this.state = {designNames: ['Design1', 'Design2']};
+  }
+
+  showDesign = (designName) => {
     const {
       unity: {
         master
       }
     } = this.props;
 
+    axios.get(`./designs/${designName}.png`, {responseType: 'arraybuffer'})
+      .then((response) => {
+        const imageUint8Array = new Uint8Array(response.data);
+
+        loadTexture(master, imageUint8Array, 'snowboard')
+      });
+  };
+
+  componentDidMount(){
+    const {
+      unity: {
+        master
+      },
+      shop: {
+        displayedDesign
+      }
+    } = this.props;
+
     const promises = [];
+
     promises.push(axios.get('./objs/Snowboard.obj'));
     promises.push(axios.get('./objs/Snowboard.mtl'));
 
@@ -48,16 +72,37 @@ class _Shop extends Component {
         const objUnti8Array = encoder.encode(objText);
         const mtlUnti8Array = encoder.encode(mtlText);
 
-        loadModel(master, objUnti8Array, 'snowboard', 'OBJ', mtlUnti8Array);
+        loadModel(master, objUnti8Array, 'snowboard', 'OBJ', mtlUnti8Array).then(() => {
+          const shadowJSON = {
+            enabled: true,
+            distance: .1
+          };
+          sendMessage(master, 'SetShadows', shadowJSON);
 
-
-        const shadowJSON = {
-          enabled: true,
-          distance: .1
-        };
-        sendMessage(master, 'SetShadows', shadowJSON);
+          this.showDesign(displayedDesign);
+        });
     });
   }
+
+  renderDotControls = () => {
+    const {
+      designNames
+    } = this.state;
+    const {
+      shop: {
+        displayedDesign
+      }
+    } = this.props;
+
+    return(
+      designNames.map((designName) =>
+      { console.log(designName);
+        return (<span key={designName}
+              className='dot'
+              onClick={() => this.showDesign(designName)}/>)
+      })
+    );
+  };
 
   render(){
     const {
@@ -76,6 +121,9 @@ class _Shop extends Component {
           setUnityControlMode={setUnityControlMode}
           toggleUnityViewAngle={toggleUnityViewAngle}
         />
+        <div id='dots-container'>
+          {this.renderDotControls()}
+        </div>
         <button onClick={goToCheckout}>Checkout</button>
       </div>
     )

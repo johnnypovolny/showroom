@@ -7,22 +7,21 @@ export const sendMessage = (unityMaster, method, data) => {
   }
 };
 
-export const loadTexture = (unityMaster, array, objName, width, height) => {
+export const loadTexture = (unityMaster, array, objName) => {
   // Create JSON to send to Unity
   const textureJSON = {
     name: objName,
     pointer: unityMaster.Module._malloc(array.byteLength),
     length: array.byteLength,
-    width,
-    height
   };
 
-  const dataHeap = new Uint8ClampedArray(unityMaster.Module.HEAPU8.buffer, textureJSON.pointer, textureJSON.length);
+  const dataHeap = new Uint8Array(unityMaster.Module.HEAPU8.buffer, textureJSON.pointer, textureJSON.length);
 
   dataHeap.set(array);
-  sendMessage(unityMaster, 'LoadTextureRaw', textureJSON);
-  unityMaster.Module._free(imageJSON.pointer);
+  sendMessage(unityMaster, 'LoadTexture', textureJSON);
+  unityMaster.Module._free(textureJSON.pointer);
 };
+
 
 export const loadMaterial = (unityMaster, array, objName) => {
   const mtlJSON = {

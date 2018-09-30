@@ -57,10 +57,21 @@ class UnityControls extends Component {
     toggleUnityViewAngle(master);
   };
 
+  homeView = () => {
+    const {
+      unity: {
+        master
+      },
+    } = this.props;
+
+    sendMessage(master, 'FrameView');
+  };
+
   render() {
     const {
       unity: {
-        unityControlMode
+        unityControlMode,
+        unityViewAngle
       }
     } = this.props;
 
@@ -69,7 +80,10 @@ class UnityControls extends Component {
         <button className="unity-control-button" onClick={() => this.toggleViewAngle()}>
           <img src='/images/toggleView.png' alt="Toggle view" />
         </button>
-        <button className="unity-control-button" onClick={() => this.tumble()}>
+        <button className="unity-control-button" onClick={() => this.homeView()}>
+          <img src='/images/homeView.png' alt="Home view" />
+        </button>
+        <button className="unity-control-button" onClick={() => this.tumble()} disabled={unityViewAngle !== 'Perspective'}>
           <img src={unityControlMode === 'tumble' ? '/images/tumbleOn.png' : '/images/tumbleOff.png'} alt="Tumble mode" />
         </button>
         <button className="unity-control-button" onClick={() => this.zoom()}>

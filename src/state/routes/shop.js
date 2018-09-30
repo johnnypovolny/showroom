@@ -14,6 +14,7 @@ export const setShopState = (key, value) => ({
 });
 
 const initialState = {
+  displayedDesign: 'Design1'
 };
 
 const reducer = (state = initialState, action = {}) => {

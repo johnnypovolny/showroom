@@ -20,6 +20,10 @@ class _App extends Component {
     location: PropTypes.object.isRequired
   };
 
+  componentDidMount(){
+    window.textureLoaded = () => {}
+  }
+
   render(){
     const {
       location

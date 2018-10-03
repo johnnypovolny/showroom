@@ -91,14 +91,19 @@ const reducer = (state = initialState, action = {}) => {
 
     case TOGGLE_UNITY_VIEW_ANGLE:
       let controlMode = state.unityControlMode;
+      let shadowJSON = {
+        enabled: false,
+        distance: .1
+      };
+
       switch (state.unityViewAngle) {
         case 'perspective':
           if(controlMode === 'tumble'){
             controlMode = 'pan';
             sendMessage(action.unityMaster, 'PanMode');
           }
-
-          sendMessage(action.unityMaster, 'SetView', 'Top');
+          sendMessage(action.unityMaster, 'SetShadows', shadowJSON);
+          sendMessage(action.unityMaster, 'SetView', 'TOP');
           sendMessage(action.unityMaster, 'FrameView');
           return merge(state, {unityViewAngle: 'top', unityControlMode: controlMode});
         case 'top':
@@ -106,11 +111,13 @@ const reducer = (state = initialState, action = {}) => {
             controlMode = 'pan';
             sendMessage(action.unityMaster, 'PanMode');
           }
-
-          sendMessage(action.unityMaster, 'SetView', 'Bottom');
+          sendMessage(action.unityMaster, 'SetShadows', shadowJSON);
+          sendMessage(action.unityMaster, 'SetView', 'BOTTOM');
           sendMessage(action.unityMaster, 'FrameView');
           return merge(state, {unityViewAngle: 'bottom', unityControlMode: 'pan'});
         case 'bottom':
+          shadowJSON.enabled = true;
+          sendMessage(action.unityMaster, 'SetShadows', shadowJSON);
           sendMessage(action.unityMaster, 'TumbleMode');
           sendMessage(action.unityMaster, 'ResetOBJPosition');
           sendMessage(action.unityMaster, 'SetView', 'Perspective');

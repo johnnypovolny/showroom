@@ -32,12 +32,20 @@ class _Welcome extends Component {
       }
     } = this.props;
 
-    if (isLoading) return <div id='loading-message'>LOADING 3D ENGINE...</div>;
 
     return (
       <div id='welcome-screen'>
-        <div>Welcome to the Snowroom</div>
-        <button onClick={goToShop}>Start Shopping</button>
+        <img id='rider'   src='./images/rider.jpg'/>
+        <img id='boards'  src='./images/boards.png'/>
+        <div id='title-container'>
+          <img id='title'   src='./images/title.svg'/>
+          {isLoading
+            ?
+            <div id='loading-message'><img src='./images/subtitle-loading.svg'/></div>
+            :
+            <button id='start-message' className='no-style-button' onClick={goToShop}><img src='./images/subtitle-start.svg'/></button>
+          }
+        </div>
       </div>
     )
   }

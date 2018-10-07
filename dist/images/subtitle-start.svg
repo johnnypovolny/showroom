@@ -1,0 +1,46 @@
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 123.38 34.7">
+  <defs>
+    <style>
+      .cls-1, .cls-2, .cls-3, .cls-4, .cls-5, .cls-7 {
+        isolation: isolate;
+      }
+
+      .cls-2, .cls-3, .cls-4, .cls-5, .cls-7 {
+        font-size: 27.47px;
+        fill: #c8c8c8;
+        font-family: SignPainter-HouseScript, SignPainter;
+      }
+
+      .cls-2 {
+        letter-spacing: -0.04em;
+      }
+
+      .cls-4 {
+        letter-spacing: -0.02em;
+      }
+
+      .cls-5 {
+        letter-spacing: -0.02em;
+      }
+
+      .cls-6 {
+        letter-spacing: -0.01em;
+      }
+
+      .cls-7 {
+        letter-spacing: -0.01em;
+      }
+    </style>
+  </defs>
+  <title>subtitle-start</title>
+  <g class="cls-1">
+    <text class="cls-2" transform="matrix(0.94, 0, 0.33, 0.94, 8.81, 22.03)">S</text>
+    <text class="cls-3" transform="matrix(0.94, 0, 0.33, 0.94, 19.28, 22.03)">H</text>
+    <text class="cls-4" transform="matrix(0.94, 0, 0.33, 0.94, 31.93, 22.03)">O</text>
+    <text class="cls-3" transform="matrix(0.94, 0, 0.33, 0.94, 45.33, 22.03)">P </text>
+    <text class="cls-5" transform="matrix(0.94, 0, 0.33, 0.94, 62.05, 22.03)">D<tspan class="cls-6" x="12.72" y="0">E</tspan></text>
+    <text class="cls-3" transform="matrix(0.94, 0, 0.33, 0.94, 83.58, 22.03)">C</text>
+    <text class="cls-7" transform="matrix(0.94, 0, 0.33, 0.94, 95.55, 22.03)">K</text>
+    <text class="cls-3" transform="matrix(0.94, 0, 0.33, 0.94, 105.58, 22.03)">S</text>
+  </g>
+</svg>

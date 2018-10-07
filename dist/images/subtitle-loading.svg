@@ -1,0 +1,49 @@
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 183.44 34.7">
+  <defs>
+    <style>
+      .cls-1, .cls-2, .cls-3, .cls-4, .cls-5, .cls-6, .cls-7 {
+        isolation: isolate;
+      }
+
+      .cls-2, .cls-3, .cls-4, .cls-5, .cls-6, .cls-7 {
+        font-size: 27.47px;
+        fill: #c8c8c8;
+        font-family: SignPainter-HouseScript, SignPainter;
+      }
+
+      .cls-2 {
+        letter-spacing: -0.08em;
+      }
+
+      .cls-3 {
+        letter-spacing: -0.03em;
+      }
+
+      .cls-5 {
+        letter-spacing: -0.01em;
+      }
+
+      .cls-6 {
+        letter-spacing: -0.01em;
+      }
+
+      .cls-7 {
+        letter-spacing: -0.03em;
+      }
+    </style>
+  </defs>
+  <title>subtitle-loading</title>
+  <g class="cls-1">
+    <text class="cls-2" transform="matrix(0.94, 0, 0.33, 0.94, 7.96, 22.03)">L</text>
+    <text class="cls-3" transform="matrix(0.94, 0, 0.33, 0.94, 14.99, 22.03)">O</text>
+    <text class="cls-4" transform="matrix(0.94, 0, 0.33, 0.94, 28.13, 22.03)">A</text>
+    <text class="cls-5" transform="matrix(0.94, 0, 0.33, 0.94, 39.58, 22.03)">D</text>
+    <text class="cls-6" transform="matrix(0.94, 0, 0.33, 0.94, 51.83, 22.03)">I</text>
+    <text class="cls-4" transform="matrix(0.94, 0, 0.33, 0.94, 56.2, 22.03)">NG 3D </text>
+    <text class="cls-7" transform="matrix(0.94, 0, 0.33, 0.94, 116.08, 22.03)">E</text>
+    <text class="cls-4" transform="matrix(0.94, 0, 0.33, 0.94, 124.84, 22.03)">NG</text>
+    <text class="cls-6" transform="matrix(0.94, 0, 0.33, 0.94, 149.7, 22.03)">I</text>
+    <text class="cls-5" transform="matrix(0.94, 0, 0.33, 0.94, 154.05, 22.03)">N</text>
+    <text class="cls-4" transform="matrix(0.94, 0, 0.33, 0.94, 165.69, 22.03)">E</text>
+  </g>
+</svg>

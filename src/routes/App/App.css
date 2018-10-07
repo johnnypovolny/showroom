@@ -9,3 +9,9 @@
     z-index: 1;
     background-color: #f8f8f8
 }
+
+.no-style-button{
+    background: transparent;
+    border: none;
+    outline: none;
+}

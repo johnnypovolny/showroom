@@ -1,20 +1,22 @@
 #unity-controls-container {
-  display: inline-block;
-  position: absolute;
-  top: 14%;
-  right: 12%;
+    display: inline-block;
+    position: absolute;
+    top: 14%;
+    right: 12%;
 }
 .unity-control-button {
+    position: relative;
     display: block;
     outline: none;
     border: none;
     background: transparent;
+    width: 10%;
 }
 
 .unity-control-button:active {
-  opacity: 0.5
+    opacity: 0.5
 }
 .unity-control-button:disabled {
-  opacity: 0.5;
+    opacity: 0.5;
 }
 

@@ -80,7 +80,7 @@ class UnityControls extends Component {
     return (
       <div id="unity-controls-container">
         <button className="unity-control-button" onClick={() => this.toggleViewAngle()}>
-          <img src='./images/toggleView.png' alt="Toggle view" />
+          <img src='./images/toggleView.png' id='toggle-view' alt="Toggle view" />
         </button>
         <button className="unity-control-button" onClick={() => this.homeView()}>
           <img src='./images/homeView.png' alt="Home view" />

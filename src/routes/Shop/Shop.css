@@ -2,6 +2,31 @@
     z-index: 1;
 }
 
+#header-container{
+    position: absolute;
+    display: inline-block;
+    top: 0;
+    right: 40%;
+    width: 20%;
+    height: 20%;
+}
+
+#header{
+    position: absolute;
+    display: inline-block;
+    top: 0;
+    left: 10%;
+    width: 80%;
+    height: 100%;
+}
+
+#design-info{
+    text-align: left;
+    position: absolute;
+    left: 75%;
+    top: 60%;
+}
+
 #go-to-checkout{
     position: relative;
 }
@@ -37,4 +62,10 @@
 
 #dot-active {
     background-color: #717171;
+}
+
+#item-count{
+    position: absolute;
+    right: 2%;
+    top: 5%;
 }

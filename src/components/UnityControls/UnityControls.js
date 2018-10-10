@@ -60,12 +60,12 @@ class UnityControls extends Component {
   homeView = () => {
     const {
       unity: {
-        unityControlMode,
+        unityViewAngle,
         master
       },
     } = this.props;
 
-    if(unityControlMode) sendMessage(master, 'ResetOBJPosition');
+    if(unityViewAngle === 'perspective') sendMessage(master, 'ResetOBJPosition');
     else sendMessage(master, 'FrameView');
   };
 

@@ -17,9 +17,24 @@ const mapDispatchToProps = {
 class _Checkout extends Component {
   static propTypes = {
     checkout: PropTypes.object.isRequired,
-    unity: PropTypes.object.isRequired,
     setCheckoutState: PropTypes.func.isRequired,
     goToShop: PropTypes.func.isRequired
+  };
+
+
+  renderCartItemsCounter = () => {
+    const {
+      checkout: {
+        cart
+      }
+    } = this.props;
+
+    let itemCount = 0;
+    Object.keys(cart).forEach((cartItemKey) => {
+      itemCount += cart[cartItemKey].quantity;
+    });
+
+    return <div id='item-count'>Items In Cart: {itemCount}</div>
   };
 
   render(){
@@ -32,6 +47,7 @@ class _Checkout extends Component {
       <div id='checkout-screen'>
         CHECKOUT
         <button onClick={goToShop}>Continue Shopping</button>
+        {this.renderCartItemsCounter()}
       </div>
     )
   }

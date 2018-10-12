@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import axios from 'axios';
 import UnityControls from '../../components/UnityControls/UnityControls';
 import * as shopActions from '../../state/routes/shop'
+import * as checkoutActions from '../../state/routes/checkout'
 import * as unityActions from '../../state/modules/unity'
 import { goToCheckout } from '../index';
 import { loadModel, loadTexture, sendMessage } from '../../utils/unityUtils';
@@ -17,8 +18,8 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = {
   goToCheckout: goToCheckout,
   setShopState: shopActions.setShopState,
-  addDesignToCart: shopActions.addDesignToCart,
-  removeDesignFromCart: shopActions.removeDesignFromCart,
+  addDesignToCart: checkoutActions.addDesignToCart,
+  removeDesignFromCart: checkoutActions.removeDesignFromCart,
   setUnityControlMode: unityActions.setUnityControlMode,
   toggleUnityViewAngle: unityActions.toggleUnityViewAngle
 };
@@ -31,12 +32,9 @@ class _Shop extends Component {
     addDesignToCart: PropTypes.func.isRequired,
     removeDesignFromCart: PropTypes.func.isRequired,
     goToCheckout: PropTypes.func.isRequired,
-    setUnityControlMode: PropTypes.func.isRequired
+    setUnityControlMode: PropTypes.func.isRequired,
+    toggleUnityViewAngle: PropTypes.func.isRequired
   };
-
-  constructor(props){
-    super(props);
-  }
 
   showDesign = (design) => {
     const {
@@ -60,8 +58,6 @@ class _Shop extends Component {
 
   componentDidMount(){
     window.ReceiveSnapshot = this.receiveSnapshot;
-
-
     const {
       unity: {
         master
@@ -191,7 +187,6 @@ class _Shop extends Component {
     const {
       shop: {
         displayedDesign,
-        cart,
         displayedDesign: {
           name,
           description,
@@ -200,7 +195,7 @@ class _Shop extends Component {
       },
       removeDesignFromCart
     } = this.props;
-    
+
     return(
       <div id='design-info'>
         <h3>{name}</h3>
@@ -210,21 +205,6 @@ class _Shop extends Component {
         <button onClick={() => {removeDesignFromCart(displayedDesign.index)}}>Remove from Cart</button>
       </div>
     )
-  };
-
-  renderCartItemsCounter = () => {
-    const {
-      shop: {
-        cart
-      }
-    } = this.props;
-
-    let itemCount = 0;
-    Object.keys(cart).forEach((cartItemKey) => {
-      itemCount += cart[cartItemKey].quantity;
-    });
-
-    return <div id='item-count'>Items In Cart: {itemCount}</div>
   };
 
   render(){
@@ -248,7 +228,6 @@ class _Shop extends Component {
         <button id='go-to-checkout' onClick={goToCheckout}>Checkout</button>
         {this.renderDesignChangeControls()}
         {this.renderDesignDetails()}
-        {this.renderCartItemsCounter()}
       </div>
     )
   }

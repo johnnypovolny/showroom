@@ -2,8 +2,6 @@ import { set } from '../../utils/objectUtils';
 
 const RESET_SHOP_STATE = 'shop/RESET_SHOP_STATE';
 const SET_SHOP_STATE = 'shop/SET_SHOP_STATE';
-const ADD_TO_CART = 'shop/ADD_TO_CART';
-const REMOVE_FROM_CART = 'shop/REMOVE_FROM_CART';
 
 export const resetShopState = () => ({
   type: RESET_SHOP_STATE
@@ -13,16 +11,6 @@ export const setShopState = (key, value) => ({
   type: SET_SHOP_STATE,
   key,
   value
-});
-
-export const addDesignToCart = (design) => ({
-  type: ADD_TO_CART,
-  design
-});
-
-export const removeDesignFromCart = (index) => ({
-  type: REMOVE_FROM_CART,
-  index
 });
 
 const initialState = {
@@ -37,7 +25,6 @@ const initialState = {
     {index: 7, name: 'The Thicket- Nightfall Edition', description: "It's right there in the name: your first choice for the trees. Small, agile, and responsive. Built for the rider who forges their own path. (Colorway: Ebony and Treeline Green)", price: 399},
     {index: 8, name: 'The Thicket- Daybreak Edition', description: "It's right there in the name: your first choice for the trees. Small, agile, and responsive. Built for the rider who forges their own path. (Colorway: Bone and Treeline Green)", price: 399}
     ],
-  cart: {}
 };
 
 const reducer = (state = initialState, action = {}) => {
@@ -46,23 +33,6 @@ const reducer = (state = initialState, action = {}) => {
       return initialState;
     case SET_SHOP_STATE:
       return set(action.key, action.value, state);
-    case ADD_TO_CART:
-      const addItemCart = JSON.parse(JSON.stringify(state.cart));
-      const existingAddCartItem = addItemCart[action.design.index];
-
-      if(existingAddCartItem) existingAddCartItem.quantity++;
-      else{
-        addItemCart[action.design.index] = action.design;
-        addItemCart[action.design.index].quantity = 1;
-      }
-      return set('cart', addItemCart, state);
-    case REMOVE_FROM_CART:
-      const removeItemCart = JSON.parse(JSON.stringify(state.cart));
-      const existingRemoveCartItem = removeItemCart[action.index];
-
-      if(existingRemoveCartItem && existingRemoveCartItem.quantity > 1) existingRemoveCartItem.quantity--;
-      else delete removeItemCart[action.index];
-      return set('cart', removeItemCart, state);
     default:
       return state;
   }

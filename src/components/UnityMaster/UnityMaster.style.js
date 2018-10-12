@@ -11,6 +11,7 @@ export const styleFunction = (props) => ({
   '& canvas':{
     width: props.unity.isVisible && props.unityVisibleRoute ? '100%' : '1px',
     height: props.unity.isVisible && props.unityVisibleRoute ? '100%' : '1px',
+    // left: props.unity.isVisible && props.unityVisibleRoute ? '0%' : '100%'
   }
 });
 

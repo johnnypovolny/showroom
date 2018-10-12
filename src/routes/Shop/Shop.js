@@ -12,6 +12,7 @@ import './Shop.css';
 
 const mapStateToProps = (state) => ({
   shop: state.routes.shop,
+  checkout: state.routes.checkout,
   unity: state.unity
 });
 
@@ -19,7 +20,6 @@ const mapDispatchToProps = {
   goToCheckout: goToCheckout,
   setShopState: shopActions.setShopState,
   addDesignToCart: checkoutActions.addDesignToCart,
-  removeDesignFromCart: checkoutActions.removeDesignFromCart,
   setUnityControlMode: unityActions.setUnityControlMode,
   toggleUnityViewAngle: unityActions.toggleUnityViewAngle
 };
@@ -27,10 +27,10 @@ const mapDispatchToProps = {
 class _Shop extends Component {
   static propTypes = {
     shop: PropTypes.object.isRequired,
+    checkout: PropTypes.object.isRequired,
     unity: PropTypes.object.isRequired,
     setShopState: PropTypes.func.isRequired,
     addDesignToCart: PropTypes.func.isRequired,
-    removeDesignFromCart: PropTypes.func.isRequired,
     goToCheckout: PropTypes.func.isRequired,
     setUnityControlMode: PropTypes.func.isRequired,
     toggleUnityViewAngle: PropTypes.func.isRequired
@@ -103,7 +103,7 @@ class _Shop extends Component {
     if(unityViewAngle === 'perspective') sendMessage(master, 'ResetOBJPosition');
     else sendMessage(master, 'FrameView');
 
-    sendMessage(master, 'Snapshot', 'Square 4K');
+    sendMessage(master, 'Snapshot', 'square');
     sendMessage(master, 'SnapshotApply');
   };
 
@@ -136,7 +136,7 @@ class _Shop extends Component {
     const snapshot = this.unityHeapDataToBase64(pointer, length);
     sendMessage(master, 'SnapshotCancel');
 
-    displayedDesign.snapshotBase64 = snapshot;
+    displayedDesign.snapshotBase64 = `data:image/png;base64,${snapshot}`;
     addDesignToCart(displayedDesign)
   };
 
@@ -186,14 +186,12 @@ class _Shop extends Component {
     if(!this.props.shop.displayedDesign) return null;
     const {
       shop: {
-        displayedDesign,
         displayedDesign: {
           name,
           description,
           price
         }
-      },
-      removeDesignFromCart
+      }
     } = this.props;
 
     return(
@@ -202,32 +200,42 @@ class _Shop extends Component {
         <div>{description}</div>
         <div>Online: ${price}</div>
         <button onClick={this.addToCart}>Add to Cart</button>
-        <button onClick={() => {removeDesignFromCart(displayedDesign.index)}}>Remove from Cart</button>
       </div>
     )
   };
 
+  renderCheckoutButton(){
+    const{
+      checkout:{
+        cart,
+      },
+      goToCheckout
+    } = this.props;
+
+    if(Object.keys(cart).length < 1) return null;
+    return <button id='go-to-checkout' onClick={goToCheckout}>Checkout</button>
+  }
+
   render(){
     const {
       unity,
-      goToCheckout,
       setUnityControlMode,
       toggleUnityViewAngle
     } = this.props;
 
     return (
       <div id='shop-screen'>
-        <div id='header-container'>
-          <img id='header'   src='./images/title.svg'/>
+        <div id='shop-header-container'>
+          <img id='shop-header'   src='./images/title.svg'/>
         </div>
         <UnityControls
           unity={unity}
           setUnityControlMode={setUnityControlMode}
           toggleUnityViewAngle={toggleUnityViewAngle}
         />
-        <button id='go-to-checkout' onClick={goToCheckout}>Checkout</button>
         {this.renderDesignChangeControls()}
         {this.renderDesignDetails()}
+        {this.renderCheckoutButton()}
       </div>
     )
   }

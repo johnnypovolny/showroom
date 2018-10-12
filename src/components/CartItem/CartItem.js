@@ -4,19 +4,32 @@ import './CartItem.css';
 
 class CartItem extends Component {
   static propTypes = {
-    cartItem: PropTypes.object.isRequired
+    item: PropTypes.object.isRequired,
+    removeDesignFromCart: PropTypes.func.isRequired,
+    changeItemQuantity: PropTypes.func.isRequired,
   };
 
   render() {
     const {
-      cartItem: {
+      item: {
+        index,
+        quantity,
         snapshotBase64
-      }
+      },
+      removeDesignFromCart,
+      changeItemQuantity
     } = this.props;
 
     return (
-      <div id="unity-controls-container">
-        <img id='cartItemImage' src={snapshotBase64} alt='No file loaded'/>
+      <div className='cart-item'>
+        <img className='cart-item-image' src={snapshotBase64} alt=''/>
+        <div>Quantity
+          <input type='number'
+                 min='1'
+                 value={quantity}
+                 onChange={(event) => {console.log(event.target.value); changeItemQuantity(index, event.target.value)}}/>
+        </div>
+        <button onClick={() => {removeDesignFromCart(index)}}>Remove From Cart</button>
       </div>
     );
   }

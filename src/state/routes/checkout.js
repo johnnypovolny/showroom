@@ -4,6 +4,7 @@ const RESET_CHECKOUT_STATE = 'checkout/RESET_CHECKOUT_STATE';
 const SET_CHECKOUT_STATE = 'checkout/SET_APP_STATE';
 const ADD_TO_CART = 'checkout/ADD_TO_CART';
 const REMOVE_FROM_CART = 'checkout/REMOVE_FROM_CART';
+const CHANGE_ITEM_QUANTITY = 'checkout/CHANGE_ITEM_QUANTITY';
 
 export const resetAppState = () => ({
   type: RESET_CHECKOUT_STATE
@@ -25,33 +26,33 @@ export const removeDesignFromCart = (index) => ({
   index
 });
 
+export const changeItemQuantity = (index, quantity) => ({
+  type: CHANGE_ITEM_QUANTITY,
+  index,
+  quantity
+});
+
 const initialState = {
   cart: {}
 };
 
 const reducer = (state = initialState, action = {}) => {
+  const cart = state.cart;
   switch (action.type) {
     case RESET_CHECKOUT_STATE:
       return initialState;
     case SET_CHECKOUT_STATE:
       return set(action.key, action.value, state);
     case ADD_TO_CART:
-      const addItemCart = JSON.parse(JSON.stringify(state.cart));
-      const existingAddCartItem = addItemCart[action.design.index];
-
-      if(existingAddCartItem) existingAddCartItem.quantity++;
-      else{
-        addItemCart[action.design.index] = action.design;
-        addItemCart[action.design.index].quantity = 1;
-      }
-      return set('cart', addItemCart, state);
+      cart[action.design.index] = action.design;
+      cart[action.design.index].quantity = 1;
+      return set('cart', cart, state);
     case REMOVE_FROM_CART:
-      const removeItemCart = JSON.parse(JSON.stringify(state.cart));
-      const existingRemoveCartItem = removeItemCart[action.index];
-
-      if(existingRemoveCartItem && existingRemoveCartItem.quantity > 1) existingRemoveCartItem.quantity--;
-      else delete removeItemCart[action.index];
-      return set('cart', removeItemCart, state);
+      delete cart[action.index];
+      return set('cart', cart, state);
+    case CHANGE_ITEM_QUANTITY:
+      cart[action.index].quantity = action.quantity;
+      return set('cart', cart, state);
     default:
       return state;
   }

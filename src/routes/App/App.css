@@ -14,4 +14,9 @@
     background: transparent;
     border: none;
     outline: none;
+    z-index:2;
+}
+
+.no-style-button:hover{
+    opacity: .5;
 }

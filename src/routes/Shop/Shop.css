@@ -2,16 +2,17 @@
     z-index: 1;
 }
 
-#header-container{
+#shop-header-container{
+    z-index: 1;
     position: absolute;
     display: inline-block;
     top: 0;
-    right: 40%;
+    left: 40%;
     width: 20%;
     height: 20%;
 }
 
-#header{
+#shop-header{
     position: absolute;
     display: inline-block;
     top: 0;
@@ -28,7 +29,9 @@
 }
 
 #go-to-checkout{
-    position: relative;
+    position: absolute;
+    top: 2%;
+    right: 2%;
 }
 
 #design-change-controls-container {

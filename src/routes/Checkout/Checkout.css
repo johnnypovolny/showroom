@@ -1,5 +1,38 @@
-#item-count{
+#checkout-screen{
+    z-index: 1;
+}
+
+#checkout-header-container{
+    position: relative;
+    width: 20%;
+    height: 20%;
+}
+
+#checkout-header{
+    display: inline-block;
+    top: 0;
+    left: 0;
+    height: 100%;
+}
+
+#back-button{
     position: absolute;
-    right: 2%;
-    top: 5%;
+    top: 35%;
+    left: 20%;
+}
+
+#cart-items{
+    position: absolute;
+    top: 0;
+    left: 20%;
+    right: 0;
+    height: 100%;
+    overflow: scroll;
+}
+
+#empty-cart-button{
+    position: absolute;
+    top: 20%;
+    left: 40%;
+    right: 40%;
 }

@@ -1,0 +1,17 @@
+.cart-item{
+    position: relative;
+    left: 20%;
+    /*display: inline-block;*/
+    margin: 40px 10px 10px 10px;
+    max-width: 40%;
+}
+
+.cart-item-image{
+    width: 100%;
+    object-fit: contain;
+}
+
+input{
+    margin: 10px 0 10px 0;
+    outline: none;
+}

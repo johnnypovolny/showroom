@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { goToShop } from '../index';
+import { goToShop, goToReceipt } from '../index';
 import * as checkoutActions from '../../state/routes/checkout'
 import CartItem from "../../components/CartItem/CartItem";
 import './Checkout.css';
@@ -14,7 +14,8 @@ const mapDispatchToProps = {
   setCheckoutState: checkoutActions.setCheckoutState,
   removeDesignFromCart: checkoutActions.removeDesignFromCart,
   changeItemQuantity: checkoutActions.changeItemQuantity,
-  goToShop: goToShop
+  goToShop: goToShop,
+  goToReceipt: goToReceipt
 };
 
 class _Checkout extends Component {
@@ -43,6 +44,40 @@ class _Checkout extends Component {
                 changeItemQuantity={changeItemQuantity}/>);
   };
 
+  renderCartTotal = () => {
+    const {
+      checkout:{
+        cart
+      },
+      goToReceipt
+    } = this.props;
+
+    let cartKeys = Object.keys(cart);
+    let totalCost;
+    switch(cartKeys.length){
+      case 0:
+        totalCost = 0;
+        break;
+      case 1:
+        const singleItem = cart[cartKeys[0]];
+        totalCost = singleItem.price * singleItem.quantity;
+        break;
+      default:
+        totalCost = cartKeys.reduce((acc, key) => {return acc + (cart[key].price * cart[key].quantity)}, 0);
+        break;
+
+    }
+
+    if(totalCost === 0) return null;
+
+    return (
+      <div id='cart-total'>
+        Cart Total $ {totalCost}
+        <button onClick={() => {goToReceipt()}}>Confirm Purchase</button>
+      </div>
+    )
+  };
+
   render(){
     const {
       checkout:{
@@ -50,6 +85,8 @@ class _Checkout extends Component {
       },
       goToShop
     } = this.props;
+
+    let cartKeys = Object.keys(cart);
 
     return (
       <div id='checkout-screen'>
@@ -59,10 +96,11 @@ class _Checkout extends Component {
             <img id='checkout-header' src='./images/title.svg'/>
           </button>
         </div>
-        {(Object.keys(cart).length < 1) ? <button id='empty-cart-button' onClick={goToShop} className='no-style-button'>CART IS EMPTY - RETURN TO SNOWROOM?</button> : null}
+        {(cartKeys.length < 1) ? <button id='empty-cart-button' onClick={goToShop} className='no-style-button'>CART IS EMPTY - RETURN TO SNOWROOM?</button> : null}
         <div id='cart-items'>
             {this.renderCartItems()}
         </div>
+        {this.renderCartTotal()}
       </div>
     )
   }
@@ -71,3 +109,4 @@ class _Checkout extends Component {
 
 const Checkout = connect(mapStateToProps, mapDispatchToProps)(_Checkout);
 export default Checkout;
+

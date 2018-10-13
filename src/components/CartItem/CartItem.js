@@ -14,6 +14,7 @@ class CartItem extends Component {
       item: {
         index,
         quantity,
+        price,
         snapshotBase64
       },
       removeDesignFromCart,
@@ -23,11 +24,14 @@ class CartItem extends Component {
     return (
       <div className='cart-item'>
         <img className='cart-item-image' src={snapshotBase64} alt=''/>
-        <div>Quantity
+        <div>
+          <div>Online Price: ${price}</div>
+          <span>Quantity</span>
           <input type='number'
                  min='1'
                  value={quantity}
-                 onChange={(event) => {console.log(event.target.value); changeItemQuantity(index, event.target.value)}}/>
+                 onChange={(event) => {changeItemQuantity(index, event.target.value)}}/>
+            <div>Item Total: ${price * quantity}</div>
         </div>
         <button onClick={() => {removeDesignFromCart(index)}}>Remove From Cart</button>
       </div>

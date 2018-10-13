@@ -5,6 +5,7 @@ import RouteSwitch from '../RouteSwitch';
 import Welcome from '../Welcome/Welcome';
 import Shop from '../Shop/Shop';
 import Checkout from '../Checkout/Checkout';
+import Receipt from '../Receipt/Receipt';
 import UnityMaster from '../../components/UnityMaster/UnityMaster';
 import './App.css';
 
@@ -36,7 +37,8 @@ class _App extends Component {
             routes={{
               WELCOME: Welcome,
               SHOP: Shop,
-              CHECKOUT: Checkout
+              CHECKOUT: Checkout,
+              RECEIPT: Receipt
             }}
         />
       </div>

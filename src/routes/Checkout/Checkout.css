@@ -36,3 +36,10 @@
     left: 40%;
     right: 40%;
 }
+
+#cart-total{
+    position: absolute;
+    top: 20%;
+    right: 10%;
+    max-width: 15%;
+}

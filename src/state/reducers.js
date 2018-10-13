@@ -4,7 +4,7 @@ import { combineReducers } from 'redux';
 import welcome from './routes/welcome';
 import shop from './routes/shop';
 import checkout from './routes/checkout';
-
+import receipt from './routes/receipt';
 import unity from './modules/unity';
 
 export default (reducers) => combineReducers({
@@ -12,6 +12,8 @@ export default (reducers) => combineReducers({
     routes: combineReducers({
         welcome,
         shop,
-        checkout}),
+        checkout,
+        receipt
+    }),
     unity
 });

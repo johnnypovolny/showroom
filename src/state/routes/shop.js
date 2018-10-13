@@ -30,6 +30,7 @@ const initialState = {
 const reducer = (state = initialState, action = {}) => {
   switch (action.type) {
     case RESET_SHOP_STATE:
+      console.log('RESETTING SHOP');
       return initialState;
     case SET_SHOP_STATE:
       return set(action.key, action.value, state);

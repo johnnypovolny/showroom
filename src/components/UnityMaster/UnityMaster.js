@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import glamorous from 'glamorous';
 import * as unityActions from '../../state/modules/unity';
 import { styleFunction } from './UnityMaster.style';
+import { sendMessage } from "../../utils/unityUtils";
 
 export const mapStateToProps = (state) => ({
   unity: state.unity
@@ -85,7 +86,7 @@ class _UnityMaster extends React.Component {
       unityIsLoading(false);
       showUnity();
       unityMaster.style.backgroundColor = 'transparent';
-      console.log('UNITY IS READY')
+      console.log('UNITY IS READY');
     };
     window.objLoaded = () => console.log('OBJ LOADED');
 

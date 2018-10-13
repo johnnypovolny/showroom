@@ -5,6 +5,8 @@ const RESET_UNITY_STATE = 'unity/RESET_STATE';
 const SET_UNITY_STATE = 'unity/SET_UNITY_STATE';
 const SET_UNITY_CONTROL_MODE = 'unity/SET_UNITY_CONTROL_MODE';
 const TOGGLE_UNITY_VIEW_ANGLE = 'unity/TOGGLE_UNITY_VIEW_ANGLE';
+const UNITY_ENABLE_CAMERA = 'unity/UNITY_ENABLE_CAMERA';
+const UNITY_DISABLE_CAMERA = 'unity/UNITY_DISABLE_CAMERA';
 
 export const resetUnityState = () => ({
   type: RESET_UNITY_STATE
@@ -51,13 +53,25 @@ export const toggleUnityViewAngle = (unityMaster) => ({
   unityMaster
 });
 
+export const unityEnableCamera = (unityMaster) => ({
+  type: UNITY_ENABLE_CAMERA,
+  unityMaster
+});
+
+export const unityDisableCamera = (unityMaster) => ({
+  type: UNITY_DISABLE_CAMERA,
+  unityMaster
+});
+
+
 const initialState = {
   master: null,
   isLoaded: false,
   isVisible: false,
   isModelReady: false,
   unityControlMode: 'tumble',
-  unityViewAngle: 'perspective'
+  unityViewAngle: 'perspective',
+  cameraEnabled: true
 };
 
 const reducer = (state = initialState, action = {}) => {
@@ -114,17 +128,26 @@ const reducer = (state = initialState, action = {}) => {
           sendMessage(action.unityMaster, 'SetShadows', shadowJSON);
           sendMessage(action.unityMaster, 'SetView', 'BOTTOM');
           sendMessage(action.unityMaster, 'FrameView');
-          return merge(state, {unityViewAngle: 'bottom', unityControlMode: 'pan'});
+          return merge(state, {unityViewAngle: 'bottom', unityControlMode: controlMode});
         case 'bottom':
+          if(controlMode === 'pan'){
+            controlMode = 'tumble';
+            sendMessage(action.unityMaster, 'TumbleMode');
+          }
           shadowJSON.enabled = true;
           sendMessage(action.unityMaster, 'SetShadows', shadowJSON);
-          sendMessage(action.unityMaster, 'TumbleMode');
-          sendMessage(action.unityMaster, 'ResetOBJPosition');
           sendMessage(action.unityMaster, 'SetView', 'Perspective');
-          return merge(state, {unityViewAngle: 'perspective', unityControlMode: 'tumble'});
+          sendMessage(action.unityMaster, 'ResetOBJPosition');
+          return merge(state, {unityViewAngle: 'perspective', unityControlMode: controlMode});
         default:
           return state;
       }
+    case UNITY_ENABLE_CAMERA:
+      sendMessage(action.unityMaster, 'EnableCamera');
+      return set('cameraEnabled', true, state);
+    case UNITY_DISABLE_CAMERA:
+      sendMessage(action.unityMaster, 'DisableCamera');
+      return set('cameraEnabled', false, state);
     default:
       return state;
   }

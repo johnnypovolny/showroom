@@ -1,5 +1,6 @@
 #shop-screen{
     z-index: 1;
+    text-align: center;
 }
 
 #shop-header-container{
@@ -65,4 +66,15 @@
 
 #dot-active {
     background-color: #717171;
+}
+
+#added-to-cart{
+    position: absolute;
+    top: 25%;
+    left: 40%;
+    width: 20%;
+    -webkit-animation: appearDisappear 2s 1;
+    -moz-animation: appearDisappear 2s 1;
+    -o-animation: appearDisappear 2s 1;
+    animation: appearDisappear 2s 1;
 }

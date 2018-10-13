@@ -3,7 +3,7 @@ import { set } from '../../utils/objectUtils';
 const RESET_WELCOME_STATE = 'welcome/RESET_STATE';
 const SET_WELCOME_STATE = 'welcome/SET_APP_STATE';
 
-export const resetAppState = () => ({
+export const resetWelcomeState = () => ({
   type: RESET_WELCOME_STATE
 });
 
@@ -19,6 +19,7 @@ const initialState = {
 const reducer = (state = initialState, action = {}) => {
   switch (action.type) {
     case RESET_WELCOME_STATE:
+      console.log('RESETTING WELCOME');
       return initialState;
     case SET_WELCOME_STATE:
       return set(action.key, action.value, state);

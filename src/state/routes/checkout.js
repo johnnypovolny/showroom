@@ -1,12 +1,12 @@
 import { set } from '../../utils/objectUtils';
 
 const RESET_CHECKOUT_STATE = 'checkout/RESET_CHECKOUT_STATE';
-const SET_CHECKOUT_STATE = 'checkout/SET_APP_STATE';
+const SET_CHECKOUT_STATE = 'checkout/SET_CHECKOUT_STATE';
 const ADD_TO_CART = 'checkout/ADD_TO_CART';
 const REMOVE_FROM_CART = 'checkout/REMOVE_FROM_CART';
 const CHANGE_ITEM_QUANTITY = 'checkout/CHANGE_ITEM_QUANTITY';
 
-export const resetAppState = () => ({
+export const resetCheckoutState = () => ({
   type: RESET_CHECKOUT_STATE
 });
 
@@ -40,6 +40,7 @@ const reducer = (state = initialState, action = {}) => {
   const cart = state.cart;
   switch (action.type) {
     case RESET_CHECKOUT_STATE:
+      console.log('RESETTING CHECKOUT');
       return initialState;
     case SET_CHECKOUT_STATE:
       return set(action.key, action.value, state);

@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import UnityControls from '../../components/UnityControls/UnityControls';
-import * as shopActions from '../../state/routes/shop'
-import * as checkoutActions from '../../state/routes/checkout'
-import * as unityActions from '../../state/modules/unity'
+import * as shopActions from '../../state/routes/shop';
+import * as checkoutActions from '../../state/routes/checkout';
+import * as unityActions from '../../state/modules/unity';
 import { goToCheckout } from '../index';
 import { loadModel, loadTexture, sendMessage } from '../../utils/unityUtils';
 import './Shop.css';
@@ -21,6 +21,8 @@ const mapDispatchToProps = {
   setShopState: shopActions.setShopState,
   addDesignToCart: checkoutActions.addDesignToCart,
   setUnityControlMode: unityActions.setUnityControlMode,
+  unityEnableCamera: unityActions.unityEnableCamera,
+  unityDisableCamera: unityActions.unityDisableCamera,
   toggleUnityViewAngle: unityActions.toggleUnityViewAngle
 };
 
@@ -33,6 +35,8 @@ class _Shop extends Component {
     addDesignToCart: PropTypes.func.isRequired,
     goToCheckout: PropTypes.func.isRequired,
     setUnityControlMode: PropTypes.func.isRequired,
+    unityEnableCamera: PropTypes.func.isRequired,
+    unityDisableCamera: PropTypes.func.isRequired,
     toggleUnityViewAngle: PropTypes.func.isRequired
   };
 
@@ -57,18 +61,22 @@ class _Shop extends Component {
   };
 
   componentDidMount(){
-    window.ReceiveSnapshot = this.receiveSnapshot;
+    window.ReceiveThumbnail = this.receiveThumbnail;
     const {
       unity: {
-        master
+        master,
+        unityViewAngle
       },
       shop: {
         designs,
         displayedDesign
-      }
+      },
+      unityEnableCamera
     } = this.props;
 
     const promises = [];
+
+    unityEnableCamera(master);
 
     promises.push(axios.get('./objs/Snowboard.obj'));
     promises.push(axios.get('./objs/Snowboard.mtl'));
@@ -92,19 +100,25 @@ class _Shop extends Component {
     });
   }
 
+  componentWillUnmount(){
+    const {
+      unity: {
+        master
+      },
+      unityDisableCamera
+    } = this.props;
+
+    unityDisableCamera(master);
+  }
+
   addToCart = () => {
     const {
       unity: {
-        unityViewAngle,
         master
-      },
+      }
     } = this.props;
 
-    if(unityViewAngle === 'perspective') sendMessage(master, 'ResetOBJPosition');
-    else sendMessage(master, 'FrameView');
-
-    sendMessage(master, 'Snapshot', 'square');
-    sendMessage(master, 'SnapshotApply');
+    sendMessage(master, 'genThumbnail');
   };
 
   unityHeapDataToBase64 = (pointer, length) => {
@@ -123,7 +137,7 @@ class _Shop extends Component {
     return btoa(binary);
   };
 
-  receiveSnapshot = (pointer, length) => {
+  receiveThumbnail = (pointer, length) => {
     const {
       shop: {
         displayedDesign,
@@ -131,13 +145,16 @@ class _Shop extends Component {
       unity: {
         master
       },
-      addDesignToCart
+      addDesignToCart,
+      setShopState
     } = this.props;
     const snapshot = this.unityHeapDataToBase64(pointer, length);
     sendMessage(master, 'SnapshotCancel');
 
     displayedDesign.snapshotBase64 = `data:image/png;base64,${snapshot}`;
-    addDesignToCart(displayedDesign)
+    addDesignToCart(displayedDesign);
+    setShopState('addedToCart', true);
+    setTimeout(() => {setShopState('addedToCart', false)}, 2000);
   };
 
   renderDesignChangeControls = () => {
@@ -204,7 +221,7 @@ class _Shop extends Component {
     )
   };
 
-  renderCheckoutButton(){
+  renderCartButton(){
     const{
       checkout:{
         cart,
@@ -212,8 +229,21 @@ class _Shop extends Component {
       goToCheckout
     } = this.props;
 
-    if(Object.keys(cart).length < 1) return null;
-    return <button id='go-to-checkout' onClick={goToCheckout}>Checkout</button>
+    if(Object.keys(cart).length < 1) return;
+    return (
+      <button id='go-to-checkout' onClick={goToCheckout}>Checkout</button>
+    )
+  }
+
+  renderAddedToCart(){
+    const{
+      shop:{
+        addedToCart,
+      }
+    } = this.props;
+
+    if(!addedToCart) return;
+    return <div id='added-to-cart'>ADDED TO CART</div>
   }
 
   render(){
@@ -235,7 +265,8 @@ class _Shop extends Component {
         />
         {this.renderDesignChangeControls()}
         {this.renderDesignDetails()}
-        {this.renderCheckoutButton()}
+        {this.renderCartButton()}
+        {this.renderAddedToCart()}
       </div>
     )
   }

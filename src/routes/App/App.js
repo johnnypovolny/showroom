@@ -21,11 +21,11 @@ class _App extends Component {
     location: PropTypes.object.isRequired
   };
 
-  componentDidMount(){
-    window.textureLoaded = () => {}
+  componentDidMount() {
+    window.textureLoaded = () => {};
   }
 
-  render(){
+  render() {
     const {
       location
     } = this.props;
@@ -34,18 +34,19 @@ class _App extends Component {
       <div id='main-app'>
         <UnityMaster unityVisibleRoute={location.type === 'SHOP'} />
         <RouteSwitch
-            routes={{
-              WELCOME: Welcome,
-              SHOP: Shop,
-              CHECKOUT: Checkout,
-              RECEIPT: Receipt
-            }}
+          routes={{
+            WELCOME: Welcome,
+            SHOP: Shop,
+            CHECKOUT: Checkout,
+            RECEIPT: Receipt
+          }}
         />
       </div>
-    )
+    );
   }
 }
 
 
 const App = connect(mapStateToProps, mapDispatchToProps)(_App);
+
 export default App;

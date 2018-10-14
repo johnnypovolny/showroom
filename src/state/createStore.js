@@ -1,8 +1,7 @@
-import routes from '../routes/index';
-import { combineReducers, createStore as _createStore, applyMiddleware, compose } from 'redux'
-
+import { createStore as _createStore, applyMiddleware, compose } from 'redux';
 import { connectRoutes } from 'redux-first-router';
-import rootReducer from './reducers';
+import routes from '../routes/index';
+import reducer from './reducers';
 
 const createStore = (history) => {
   const {
@@ -12,15 +11,15 @@ const createStore = (history) => {
   } = connectRoutes(history, routes);
 
   const middlewares = applyMiddleware(middleware);
-  const store = _createStore(rootReducer({location}), compose(enhancer, middlewares));
+  const store = _createStore(reducer({ location }), compose(enhancer, middlewares));
 
   if (module.hot) {
     module.hot.accept('./reducers', () => {
-      store.replaceReducer(rootReducer({ location }));
+      store.replaceReducer(reducer({ location }));
     });
   }
 
-  return store
+  return store;
 };
 
 export default createStore;

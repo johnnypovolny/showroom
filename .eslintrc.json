@@ -1,0 +1,82 @@
+{
+    "extends": "airbnb",
+    "env": {
+        "browser": true,
+        "node": true,
+        "es6": true
+    },
+    "rules": {
+        "jsx-quotes": 0,
+        "arrow-parens": 0,
+        "class-methods-use-this": 0,
+        "comma-dangle": 0,
+        "consistent-return": 0,
+        "function-paren-newline": "off",
+        "global-require": 0,
+        "import/default": 0,
+        "import/extensions": [0],
+        "import/imports-first": 0,
+        "import/named": 0,
+        "import/namespace": 0,
+        "import/newline-after-import": 0,
+        "import/no-duplicates": 0,
+        "import/no-extraneous-dependencies": 0,
+        "import/no-named-as-default": 2,
+        "import/no-unresolved": 0,
+        "import/prefer-default-export": 0,
+        "indent": [2, 2, {"SwitchCase": 1}],
+        "jsx-a11y/anchor-is-valid": 0,
+        "jsx-a11y/click-events-have-key-events": 0,
+        "jsx-a11y/img-has-alt" : 0,
+        "jsx-a11y/no-static-element-interactions": 0,
+        "max-len": [2, 1000],
+        "newline-after-var": 2,
+        "no-alert": 0,
+        "no-bitwise": 0,
+        "no-case-declarations": 0,
+        "no-console": 0,
+        "no-param-reassign": 0,
+        "no-plusplus": 0,
+        "no-return-assign": 0,
+        "no-underscore-dangle": 0,
+        "object-curly-newline": 0,
+        "prefer-destructuring": [  "warn",
+            {
+                "VariableDeclarator": {
+                    "array": false,
+                    "object": true
+                },
+                "AssignmentExpression": {
+                    "array": true,
+                    "object": true
+                }
+            },
+            {
+                "enforceForRenamedProperties": false
+            }
+        ],
+        "prefer-template": 1,
+        "react/button-has-type": 0,
+        "react/forbid-prop-types": 0,
+        "react/jsx-closing-bracket-location": 0,
+        "react/jsx-filename-extension": 0,
+        "react/jsx-first-prop-new-line": [1, "multiline"],
+        "react/jsx-no-target-blank": 1,
+        "react/jsx-one-expression-per-line": 0,
+        "react/no-find-dom-node": 1,
+        "react/no-multi-comp": [1],
+        "react/no-unescaped-entities": 0,
+        "react/prefer-stateless-function": 0,
+        "react/require-default-props": 0,
+        "react/self-closing-comp": 0
+    },
+    "parser": "babel-eslint",
+    "parserOptions": {
+        "sourceType": "module"
+    },
+    "plugins": [
+        "react",
+        "jsx-a11y",
+        "import"
+    ]
+}

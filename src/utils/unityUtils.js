@@ -31,6 +31,7 @@ export const loadMaterial = (unityMaster, array, objName) => {
   };
 
   const dataHeap = new Uint8Array(unityMaster.Module.HEAPU8.buffer, mtlJSON.pointer, mtlJSON.length);
+
   dataHeap.set(array);
   sendMessage(unityMaster, 'LoadMTL', mtlJSON);
   unityMaster.Module._free(mtlJSON.pointer);
@@ -47,6 +48,7 @@ export const loadModel = (unityMaster, objArray, objName, fileFormat, mtlArray) 
     };
 
     const dataHeap = new Uint8Array(unityMaster.Module.HEAPU8.buffer, objJSON.pointer, objJSON.length);
+
     dataHeap.set(objArray);
     sendMessage(unityMaster, 'RemoveModels');
     sendMessage(unityMaster, 'LoadModel', objJSON);
@@ -58,4 +60,3 @@ export const loadModel = (unityMaster, objArray, objName, fileFormat, mtlArray) 
     resolve('Loaded Model ', objName);
   })
 );
-

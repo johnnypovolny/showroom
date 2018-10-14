@@ -27,12 +27,15 @@ class _UnityMaster extends React.Component {
     unityIsLoading: PropTypes.func.isRequired,
     unityIsReady: PropTypes.func.isRequired,
     showUnity: PropTypes.func.isRequired,
-    unityVisibleRoute: PropTypes.bool.isRequired,
     className: PropTypes.string.isRequired
   };
 
   componentWillMount() {
-    this.props.unityIsLoading(true);
+    const {
+      unityIsLoading
+    } = this.props;
+
+    unityIsLoading(true);
   }
 
   componentDidMount() {
@@ -40,11 +43,21 @@ class _UnityMaster extends React.Component {
   }
 
   componentWillUpdate() {
-    return !(this.props.unity.isLoading);
+    const {
+      unity: {
+        isLoading
+      }
+    } = this.props;
+
+    return !(isLoading);
   }
 
   componentWillUnmount() {
-    this.props.resetUnityState();
+    const {
+      resetUnityState
+    } = this.props;
+
+    resetUnityState();
   }
 
   startUnity = () => {

@@ -1,5 +1,5 @@
 import { set, merge } from '../../utils/objectUtils';
-import { sendMessage } from "../../utils/unityUtils";
+import { sendMessage } from '../../utils/unityUtils';
 
 const RESET_UNITY_STATE = 'unity/RESET_STATE';
 const SET_UNITY_STATE = 'unity/SET_UNITY_STATE';
@@ -105,32 +105,32 @@ const reducer = (state = initialState, action = {}) => {
 
     case TOGGLE_UNITY_VIEW_ANGLE:
       let controlMode = state.unityControlMode;
-      let shadowJSON = {
+      const shadowJSON = {
         enabled: false,
-        distance: .1
+        distance: 0.1
       };
 
       switch (state.unityViewAngle) {
         case 'perspective':
-          if(controlMode === 'tumble'){
+          if (controlMode === 'tumble') {
             controlMode = 'pan';
             sendMessage(action.unityMaster, 'PanMode');
           }
           sendMessage(action.unityMaster, 'SetShadows', shadowJSON);
           sendMessage(action.unityMaster, 'SetView', 'TOP');
           sendMessage(action.unityMaster, 'FrameView');
-          return merge(state, {unityViewAngle: 'top', unityControlMode: controlMode});
+          return merge(state, { unityViewAngle: 'top', unityControlMode: controlMode });
         case 'top':
-          if(controlMode === 'tumble'){
+          if (controlMode === 'tumble') {
             controlMode = 'pan';
             sendMessage(action.unityMaster, 'PanMode');
           }
           sendMessage(action.unityMaster, 'SetShadows', shadowJSON);
           sendMessage(action.unityMaster, 'SetView', 'BOTTOM');
           sendMessage(action.unityMaster, 'FrameView');
-          return merge(state, {unityViewAngle: 'bottom', unityControlMode: controlMode});
+          return merge(state, { unityViewAngle: 'bottom', unityControlMode: controlMode });
         case 'bottom':
-          if(controlMode === 'pan'){
+          if (controlMode === 'pan') {
             controlMode = 'tumble';
             sendMessage(action.unityMaster, 'TumbleMode');
           }
@@ -138,7 +138,7 @@ const reducer = (state = initialState, action = {}) => {
           sendMessage(action.unityMaster, 'SetShadows', shadowJSON);
           sendMessage(action.unityMaster, 'SetView', 'Perspective');
           sendMessage(action.unityMaster, 'ResetOBJPosition');
-          return merge(state, {unityViewAngle: 'perspective', unityControlMode: controlMode});
+          return merge(state, { unityViewAngle: 'perspective', unityControlMode: controlMode });
         default:
           return state;
       }

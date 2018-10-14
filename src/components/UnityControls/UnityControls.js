@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-
 import { sendMessage } from '../../utils/unityUtils';
 import './UnityControls.css';
 
@@ -18,6 +17,7 @@ class UnityControls extends Component {
       },
       setUnityControlMode
     } = this.props;
+
     setUnityControlMode(master, 'tumble');
   };
 
@@ -62,7 +62,7 @@ class UnityControls extends Component {
       },
     } = this.props;
 
-    if(unityViewAngle === 'perspective') sendMessage(master, 'ResetOBJPosition');
+    if (unityViewAngle === 'perspective') sendMessage(master, 'ResetOBJPosition');
     else sendMessage(master, 'FrameView');
   };
 
@@ -97,4 +97,3 @@ class UnityControls extends Component {
 }
 
 export default UnityControls;
-

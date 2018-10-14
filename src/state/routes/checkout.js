@@ -40,7 +40,6 @@ const reducer = (state = initialState, action = {}) => {
   const cart = state.cart;
   switch (action.type) {
     case RESET_CHECKOUT_STATE:
-      console.log('RESETTING CHECKOUT');
       return initialState;
     case SET_CHECKOUT_STATE:
       return set(action.key, action.value, state);

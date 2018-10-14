@@ -18,9 +18,6 @@ class UnityControls extends Component {
       },
       setUnityControlMode
     } = this.props;
-
-    console.log('UNITY MASTER:', master);
-
     setUnityControlMode(master, 'tumble');
   };
 

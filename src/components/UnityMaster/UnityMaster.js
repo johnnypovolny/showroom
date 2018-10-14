@@ -48,11 +48,15 @@ class _UnityMaster extends React.Component {
   }
 
   startUnity = () => {
+    const {
+      setUnityMaster
+    } = this.props;
+
     console.log('startUnity()');
     const master = window.UnityLoader.instantiate('unity-master', '/unity/unity.json');
 
     window.addEventListener('resize', this.resizeUnity);
-    this.props.setUnityMaster(master);
+    setUnityMaster(master);
   };
 
   resizeUnity = () => {

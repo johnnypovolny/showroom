@@ -19,7 +19,6 @@ const initialState = {
 const reducer = (state = initialState, action = {}) => {
   switch (action.type) {
     case RESET_WELCOME_STATE:
-      console.log('RESETTING WELCOME');
       return initialState;
     case SET_WELCOME_STATE:
       return set(action.key, action.value, state);

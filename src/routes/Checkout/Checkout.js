@@ -73,7 +73,7 @@ class _Checkout extends Component {
     return (
       <div id='cart-total'>
         Cart Total $ {totalCost}
-        <button onClick={() => {goToReceipt()}}>Confirm Purchase</button>
+        <div><button onClick={() => {goToReceipt()}}>Confirm Purchase</button></div>
       </div>
     )
   };

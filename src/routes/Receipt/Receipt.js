@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { goToShop, goToWelcome } from '../index';
+import { goToShop, goToWelcome, resetStates } from '../index';
 import * as receiptActions from "../../state/routes/receipt"
-import * as welcomeActions from "../../state/routes/welcome"
-import * as shopActions from "../../state/routes/shop"
-import * as checkoutActions from "../../state/routes/checkout"
 import './Receipt.css';
 
 const mapStateToProps = (state) => ({
@@ -16,47 +13,31 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = {
   goToShop: goToShop,
   goToWelcome: goToWelcome,
+  resetStates: resetStates,
   setReceiptState: receiptActions.setReceiptState,
-  resetReceiptState: receiptActions.resetReceiptState,
-  resetWelcomeState: welcomeActions.resetWelcomeState,
-  resetShopState: shopActions.resetShopState,
-  resetCheckoutState: checkoutActions.resetCheckoutState,
 };
-
 
 class _Receipt extends Component {
   static propTypes = {
     setReceiptState: PropTypes.func.isRequired
   };
 
-  resetStates = () => {
-    const {
-      resetReceiptState,
-      resetWelcomeState,
-      resetShopState,
-      resetCheckoutState,
-    } = this.props;
-
-    resetReceiptState();
-    resetWelcomeState();
-    resetShopState();
-    resetCheckoutState();
-  };
-
   shopMore = () => {
     const {
-      goToShop
+      goToShop,
+      resetStates
     } = this.props;
-    this.resetStates();
+    resetStates();
     goToShop();
   };
 
   signOut = () => {
     const {
-      goToWelcome
+      goToWelcome,
+      resetStates
     } = this.props;
 
-    this.resetStates();
+    resetStates();
     goToWelcome();
   };
 
@@ -72,7 +53,6 @@ class _Receipt extends Component {
   calculateDeliveryDate = (daysToAdd) => {
     let deliveryDate = new Date();
     deliveryDate.setDate(deliveryDate.getDate() + daysToAdd);
-    console.log('NEW DATE: ', deliveryDate);
     return deliveryDate;
   };
 
@@ -100,7 +80,7 @@ class _Receipt extends Component {
     return cartKeys.map((key) => {
       const item = cart[key];
       return (
-      <div id='purchased-item'>
+      <div key={key} id='purchased-item'>
         <div>Item: {item.name}</div>
         <div>Qty: {item.quantity}</div>
         <div>Item Total: {item.quantity * item.price}</div>

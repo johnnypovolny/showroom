@@ -20,9 +20,7 @@ export const rootReducer = reducer => {
   });
   return (state, action) => {
     if (action.type === 'RESET_STATES') {
-      const {
-        unity
-      } = state;
+      console.log('RESETTING STATES');
       state = undefined;
     }
     return appReducer(state, action);

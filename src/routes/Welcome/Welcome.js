@@ -32,7 +32,6 @@ class _Welcome extends Component {
       }
     } = this.props;
 
-
     return (
       <div id='welcome-screen'>
         <img id='rider'   src='./images/rider.jpg'/>

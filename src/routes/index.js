@@ -3,13 +3,10 @@ const routes = {
     path: '/',
   },
   SHOP: {
-    path: '/shop'
+    path: '/shop',
   },
   CHECKOUT: {
-    path: '/checkout'
-  },
-  RECEIPT: {
-    path: '/receipt'
+    path: '/checkout',
   }
 };
 
@@ -17,7 +14,5 @@ const routes = {
 export const goToWelcome = () => ({ type: 'WELCOME' });
 export const goToShop = () => ({ type: 'SHOP' });
 export const goToCheckout = () => ({ type: 'CHECKOUT' });
-export const goToReceipt = () => ({ type: 'RECEIPT' });
-export const resetStates = () => ({ type: 'RESET_STATES' });
 
 export default routes;

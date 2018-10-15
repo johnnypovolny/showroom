@@ -1,6 +1,5 @@
 import { set } from '../../utils/objectUtils';
 
-const GLOBAL_RESET = 'GLOBAL_RESET';
 const RESET_CHECKOUT_STATE = 'checkout/RESET_CHECKOUT_STATE';
 const SET_CHECKOUT_STATE = 'checkout/SET_CHECKOUT_STATE';
 const ADD_TO_CART = 'checkout/ADD_TO_CART';
@@ -38,12 +37,13 @@ const initialState = {
 };
 
 const reducer = (state = initialState, action = {}) => {
-  const cart = state.cart;
+  const {
+    cart
+  } = state;
 
   switch (action.type) {
-    case GLOBAL_RESET:
     case RESET_CHECKOUT_STATE:
-      return initialState;
+      return {cart: {}};
     case SET_CHECKOUT_STATE:
       return set(action.key, action.value, state);
     case ADD_TO_CART:

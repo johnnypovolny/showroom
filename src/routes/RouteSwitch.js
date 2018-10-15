@@ -9,7 +9,7 @@ export const mapStateToProps = (state) => ({
 /**
  * General route component
  */
-export const _RouteSwitch = ({location, routes}) => {
+export const _RouteSwitch = ({ location, routes }) => {
   const RouteComponent = routes[location.type];
 
   if (RouteComponent) {

@@ -25,14 +25,34 @@
 #design-info{
     text-align: left;
     position: absolute;
-    left: 75%;
+    left: 10%;
+    max-width: 20%;
     top: 60%;
+    font-family: 'Raleway', sans-serif;
+}
+
+#design-info h3{
+    font-family: 'SaintFont', 'Raleway', sans-serif;
+}
+
+#add-to-cart-button{
+    margin: 10px 0 0 0;
+    border: thin grey solid;
+    border-radius: 45%;
 }
 
 #go-to-checkout{
     position: absolute;
     top: 2%;
     right: 2%;
+}
+
+#added-to-cart{
+    position: absolute;
+    top: 25%;
+    left: 40%;
+    width: 20%;
+    animation: appearDisappear 2s 1;
 }
 
 #design-change-controls-container {
@@ -63,18 +83,6 @@
     vertical-align: middle;
 }
 
-
 #dot-active {
     background-color: #717171;
-}
-
-#added-to-cart{
-    position: absolute;
-    top: 25%;
-    left: 40%;
-    width: 20%;
-    -webkit-animation: appearDisappear 2s 1;
-    -moz-animation: appearDisappear 2s 1;
-    -o-animation: appearDisappear 2s 1;
-    animation: appearDisappear 2s 1;
 }

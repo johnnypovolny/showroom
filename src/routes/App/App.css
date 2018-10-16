@@ -1,3 +1,5 @@
+@import url(//fonts.googleapis.com/css?family=Raleway);
+
 #main-app {
     position: absolute;
     top:0;
@@ -27,39 +29,15 @@
     50%  { opacity:0; }
     100% { opacity:1; }
 }
-@-o-keyframes flickerAnimation{
-    0%   { opacity:1; }
-    50%  { opacity:0; }
-    100% { opacity:1; }
-}
-@-moz-keyframes flickerAnimation{
-    0%   { opacity:1; }
-    50%  { opacity:0; }
-    100% { opacity:1; }
-}
-@-webkit-keyframes flickerAnimation{
-    0%   { opacity:1; }
-    50%  { opacity:0; }
-    100% { opacity:1; }
-}
 
 @keyframes appearDisappear {
     0%   { opacity:0; }
     50%  { opacity:1; }
     100% { opacity:0; }
 }
-@-o-keyframes appearDisappear{
-    0%   { opacity:0; }
-    50%  { opacity:1; }
-    100% { opacity:0; }
-}
-@-moz-keyframes appearDisappear{
-    0%   { opacity:0; }
-    50%  { opacity:1; }
-    100% { opacity:0; }
-}
-@-webkit-keyframes appearDisappear{
-    0%   { opacity:0; }
-    50%  { opacity:1; }
-    100% { opacity:0; }
+
+
+@font-face {
+    font-family: 'SaintFont';
+    src: url('/fonts/SAINT_FONT.ttf') format('truetype')
 }

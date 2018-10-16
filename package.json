@@ -12,12 +12,14 @@
     "lint": "eslint -c .eslintrc.json bin src webpack"
   },
   "dependencies": {
+    "autoprefixer": "^9.2.0",
     "axios": "^0.18.0",
     "eslint-plugin-import": "^2.13.0",
     "glamor": "^2.20.40",
     "glamorous": "^4.13.1",
     "history": "^4.7.2",
     "path": "^0.12.7",
+    "postcss": "^7.0.5",
     "prop-types": "^15.6.2",
     "ramda": "^0.25.0",
     "react": "^16.4.1",
@@ -48,9 +50,16 @@
     "eslint-plugin-react": "^7.11.1",
     "file-loader": "^1.1.11",
     "react-hot-loader": "^4.3.3",
+    "resolve-url-loader": "^3.0.0",
     "style-loader": "^0.21.0",
     "url-loader": "^1.0.1",
     "webpack": "^4.16.0",
     "webpack-dev-server": "^3.1.4"
-  }
+  },
+  "browserslist": [
+    "last 1 version",
+    "> 1%",
+    "maintained node versions",
+    "not dead"
+  ]
 }

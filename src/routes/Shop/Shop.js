@@ -225,7 +225,7 @@ class _Shop extends Component {
         <h3>{name}</h3>
         <div>{description}</div>
         <div> Online: ${price}</div>
-        <button onClick={this.addToCart}>Add to Cart</button>
+        <button id='add-to-cart-button' className='no-style-button' onClick={this.addToCart}>Add to Cart</button>
       </div>
     );
   };

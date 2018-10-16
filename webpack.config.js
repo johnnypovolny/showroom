@@ -1,8 +1,8 @@
 const webpack = require('webpack');
 const path = require('path');
+const environment = process.env.NODE_ENV || 'development';
 
-let environment = process.env.NODE_ENV || "development";
-console.log("Environment is:", environment);
+console.log('Environment is:', environment);
 
 module.exports = {
   mode: 'development',
@@ -10,7 +10,7 @@ module.exports = {
 
   // This is the entry point for your application.
   entry: {
-    'app': [
+    app: [
       'react-hot-loader/patch',
       'webpack/hot/only-dev-server',
       'babel-polyfill',
@@ -26,7 +26,7 @@ module.exports = {
   resolve: {
     // These are the reasonable defaults supported by the Node ecosystem.
     alias: {
-      config: path.join(__dirname, "./src/config", environment)
+      config: path.join(__dirname, './src/config', environment)
     }
   },
   // This section specifies how each file should be processed before it is combined into your bundle
@@ -41,26 +41,21 @@ module.exports = {
           plugins: ['transform-class-properties']
         }
       },
-      { test: /\.css$/, loader: 'style-loader!css-loader' },
-      { test: /\.woff(\?v=\d+\.\d+\.\d+)?$/, loader: "url-loader?limit=10000&mimetype=application/font-woff" },
-      { test: /\.woff2(\?v=\d+\.\d+\.\d+)?$/, loader: "url-loader?limit=10000&mimetype=application/font-woff" },
-      { test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/, loader: "url-loader?limit=10000&mimetype=application/octet-stream" },
-      { test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, loader: "file-loader" },
-      { test: /\.otf(\?v=\d+\.\d+\.\d+)?$/, loader: "file-loader" },
-      { test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, loader: "url-loader?limit=10000&mimetype=image/svg+xml" },
+      { test: /\.css$/, use: ['style-loader', { loader: 'css-loader', options: { importLoaders: 1 } }, 'postcss-loader'] },
+      { test: /\.(woff|woff2|eot|ttf)$/, loader: 'url-loader?limit=10000' },
+      { test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, loader: 'url-loader?limit=10000&mimetype=image/svg+xml' }
     ]
   },
-
   // Configure webpack-dev-server
   devServer: {
     hot: true,
-    contentBase: path.join(__dirname, "dist"),
-    host: "snowroom-dev.com",
+    contentBase: path.join(__dirname, 'dist'),
+    host: 'snowroom-dev.com',
     port: 3000
   },
 
   plugins: [
-    //Enable Hot Modules Replacement
+    // Enable Hot Modules Replacement
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NamedModulesPlugin()
   ]

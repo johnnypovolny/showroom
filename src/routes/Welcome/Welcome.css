@@ -11,30 +11,30 @@
     opacity: .8;
 }
 
+#shop-header{
+    display: inline-block;
+    max-width: 50%;
+}
+
 #title-container{
     position: absolute;
     display: inline-block;
     top: 15%;
-    right: 3%;
-    width: 30%;
-    height: 40%;
+    right: 0;
 }
 
 #title{
-    position: absolute;
     display: inline-block;
-    top: 0;
-    left: 0;
-    width: 80%;
-    height: 100%;
+    max-width: 60%;
+
 }
 
 #loading-message{
     position: absolute;
     display: inline-block;
-    top: 70%;
+    top: 80%;
     width: 50%;
-    left: 50%;
+    left: 45%;
     animation: flickerAnimation 2s infinite;
     object-fit: contain;
 }
@@ -42,9 +42,9 @@
 #start-message{
     position: absolute;
     display: inline-block;
-    top: 68%;
+    top: 80%;
     width: 30%;
-    left: 50%;
+    left: 55%;
     border: thin solid grey;
     border-radius: 20%;
     padding: 5px 0 0 0;

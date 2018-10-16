@@ -155,7 +155,7 @@ class _Shop extends Component {
     displayedDesign.snapshotBase64 = `data:image/png;base64,${snapshot}`;
     addDesignToCart(displayedDesign);
     setShopState('addedToCart', true);
-    setTimeout(() => { setShopState('addedToCart', false);}, 2000);
+    setTimeout(() => { setShopState('addedToCart', false); }, 3000);
   };
 
   renderDesignChangeControls = () => {
@@ -205,27 +205,40 @@ class _Shop extends Component {
   renderDesignDetails = () => {
     const {
       shop: {
-        displayedDesign
+        displayedDesign,
+        addedToCart
+      },
+      checkout: {
+        cart
       }
     } = this.props;
 
     if (!displayedDesign) return null;
     const {
-      shop: {
-        displayedDesign: {
-          name,
-          description,
-          price
-        }
-      }
-    } = this.props;
+      index,
+      name,
+      description,
+      price
+    } = displayedDesign;
 
     return (
       <div id='design-info'>
-        <h3>{name}</h3>
+        <h2>{name}</h2>
         <div>{description}</div>
         <div> Online: ${price}</div>
-        <button id='add-to-cart-button' className='no-style-button' onClick={this.addToCart}>Add to Cart</button>
+        {
+          cart[index] && !addedToCart
+            ? null
+            : (
+              <button
+                id={addedToCart ? 'added-to-cart' : 'add-to-cart'}
+                className='no-style-button'
+                disabled={addedToCart}
+                onClick={this.addToCart}>
+                {addedToCart ? 'Added to Cart' : 'Add to Cart'}
+              </button>)
+        }
+
       </div>
     );
   };
@@ -238,21 +251,16 @@ class _Shop extends Component {
       goToCheckout
     } = this.props;
 
+    const cartKeys = Object.keys(cart);
+    const totalItems = cartKeys.reduce((acc, key) => acc + (Number(cart[key].quantity)), 0);
+
     if (Object.keys(cart).length < 1) return;
     return (
-      <button id='go-to-checkout' onClick={goToCheckout}>Checkout</button>
+      <button id='go-to-checkout' className='no-style-button' onClick={goToCheckout}>
+        <img src='./images/shoppingCart.svg' alt='Checkout' />
+        <span>{totalItems}</span>
+      </button>
     );
-  }
-
-  renderAddedToCart() {
-    const {
-      shop: {
-        addedToCart,
-      }
-    } = this.props;
-
-    if (!addedToCart) return;
-    return <div id='added-to-cart'>ADDED TO CART</div>;
   }
 
   render() {
@@ -275,7 +283,6 @@ class _Shop extends Component {
         {this.renderDesignChangeControls()}
         {this.renderDesignDetails()}
         {this.renderCartButton()}
-        {this.renderAddedToCart()}
       </div>
     );
   }

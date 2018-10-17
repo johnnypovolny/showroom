@@ -19,8 +19,16 @@
 #title-container{
     position: absolute;
     display: inline-block;
-    top: 15%;
-    right: 0;
+    top: 20%;
+    right: 10%;
+}
+
+
+#title-container-mobile{
+    position: absolute;
+    display: inline-block;
+    top: -4%;
+    right: -10%;
 }
 
 #title{
@@ -53,4 +61,19 @@
 
 #start-message:hover{
     opacity: .5;
+}
+
+#mobile-message {
+    position: absolute;
+    top: 58%;
+    left: 0;
+    right: 0;
+    min-height: 5%;
+    border-radius: 2%;
+    padding: 5px 0 5px 0;
+    text-align: center;
+    font-family: 'Raleway', sans-serif;
+    font-size: calc(2vw + 5px);
+    background: rgba(255, 255, 255, 1);
+    vertical-align: middle;
 }

@@ -6,7 +6,7 @@ as sample code to demonstrate expertise in the latest front-end technologies for
 and employers. 
 
 
-###Demo
+### Demo
 
 Access the live demo at: http://snowroom.johnnypovolny.com
 
@@ -21,7 +21,7 @@ the site to function in a SPA-like fashion.
 deployment of the static assets (index.html, bundle.js, images/fonts, etc) via the serverless-s3-sync plugin.
 * The primary development environment was Google Chrome, but the app is compatible with major browsers and common mobile devices. 
 
-###Licensing Note:
+### Licensing Note:
 As this project is sample code to exemplify the owner's personal skill set, no open source license is being offered. 
 No use or distribution by external parties is permitted.  
  

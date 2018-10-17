@@ -24,7 +24,7 @@ class CartItem extends Component {
     return (
       <div className='cart-item'>
         <img className='cart-item-image' src={snapshotBase64} alt='' />
-        <div>
+        <div className='cart-item-info'>
           <div>Online Price: ${price}</div>
           <span>Quantity</span>
           <input
@@ -34,8 +34,12 @@ class CartItem extends Component {
             onChange={(event) => { changeItemQuantity(index, event.target.value); }}
           />
           <div>Item Total: ${price * quantity}</div>
+          <button
+            className='remove-from-cart'
+            onClick={() => { removeDesignFromCart(index); }}>
+            Remove From Cart
+          </button>
         </div>
-        <button onClick={() => { removeDesignFromCart(index); }}>Remove From Cart</button>
       </div>
     );
   }

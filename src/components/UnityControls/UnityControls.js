@@ -10,6 +10,7 @@ class UnityControls extends Component {
     toggleUnityViewAngle: PropTypes.func.isRequired
   };
 
+  // Set Unity to Tumble Mode
   tumble = () => {
     const {
       unity: {
@@ -21,6 +22,7 @@ class UnityControls extends Component {
     setUnityControlMode(master, 'tumble');
   };
 
+  // Set Unity to Zoom Mode
   zoom = () => {
     const {
       unity: {
@@ -32,6 +34,7 @@ class UnityControls extends Component {
     setUnityControlMode(master, 'zoom');
   };
 
+  // Set Unity to Pan Mode
   pan = () => {
     const {
       unity: {
@@ -43,6 +46,7 @@ class UnityControls extends Component {
     setUnityControlMode(master, 'pan');
   };
 
+  // Toggle between the 'pespective' view of the 3D model and the 'top' and 'bottom' orthographic views
   toggleViewAngle = () => {
     const {
       unity: {
@@ -54,6 +58,7 @@ class UnityControls extends Component {
     toggleUnityViewAngle(master);
   };
 
+  // Return the 3D model to the starting point of the view it's in- centered and standard zoomed.
   homeView = () => {
     const {
       unity: {

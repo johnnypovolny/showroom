@@ -30,67 +30,20 @@ class _Checkout extends Component {
     resetCheckoutState: PropTypes.func.isRequired
   };
 
-  generateId = () => {
-    const idChars = [];
-    const charSet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-
-    for (let i = 0; i < 8; i++) idChars.push(charSet.charAt(Math.floor(Math.random() * charSet.length)));
-
-    return idChars.join('');
-  };
-
-  calculateDeliveryDate = (daysToAdd) => {
-    const deliveryDate = new Date();
-
-    deliveryDate.setDate(deliveryDate.getDate() + daysToAdd);
-    return deliveryDate;
-  };
-
-  shopMore = () => {
+  componentWillUnmount() {
     const {
-      goToShop,
       resetCheckoutState
     } = this.props;
 
     resetCheckoutState();
-    goToShop();
-  };
+  }
 
-  signOut = () => {
-    const {
-      goToWelcome,
-      resetCheckoutState
-    } = this.props;
-
-    resetCheckoutState();
-    goToWelcome();
-  };
-
-  renderCartItems = () => {
+  // Figure out the total cost of all items in the cart
+  calculateCartTotal = () => {
     const {
       checkout: {
         cart
-      },
-      changeItemQuantity,
-      removeDesignFromCart
-    } = this.props;
-
-    return Object.keys(cart).map((key) => (
-      <CartItem
-        key={key}
-        item={cart[key]}
-        removeDesignFromCart={removeDesignFromCart}
-        changeItemQuantity={changeItemQuantity}
-      />)
-    );
-  };
-
-  renderCartTotal = () => {
-    const {
-      checkout: {
-        cart
-      },
-      setCheckoutState
+      }
     } = this.props;
 
     const cartKeys = Object.keys(cart);
@@ -110,24 +63,92 @@ class _Checkout extends Component {
         break;
     }
 
-    if (totalCost === 0) return null;
+    return totalCost;
+  };
 
+  // Helper function to create a randomized confirmation number for the order
+  generateId = () => {
+    const idChars = [];
+    const charSet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+
+    for (let i = 0; i < 8; i++) idChars.push(charSet.charAt(Math.floor(Math.random() * charSet.length)));
+
+    return idChars.join('');
+  };
+
+  // Helper function to return a date string a given number of days from the moment of purchase (for delivery info).
+  calculateDeliveryDate = (daysToAdd) => {
+    const deliveryDate = new Date();
+
+    deliveryDate.setDate(deliveryDate.getDate() + daysToAdd);
+    return deliveryDate;
+  };
+
+  // Clear checkout duck state and return to snowroom
+  shopMore = () => {
+    const {
+      goToShop,
+    } = this.props;
+
+    goToShop();
+  };
+
+
+  // Clear checkout duck state and return to welcome screen
+  signOut = () => {
+    const {
+      goToWelcome,
+    } = this.props;
+
+    goToWelcome();
+  };
+
+  // Map the list of cart items to CartItem components
+  renderCartItems = () => {
+    const {
+      checkout: {
+        cart
+      },
+      changeItemQuantity,
+      removeDesignFromCart
+    } = this.props;
+
+    return Object.keys(cart).map((key) => (
+      <CartItem
+        key={key}
+        item={cart[key]}
+        removeDesignFromCart={removeDesignFromCart}
+        changeItemQuantity={changeItemQuantity}
+      />)
+    );
+  };
+
+  // Show total cost of cart and allow user to complete purchase
+  renderCartTotal = () => {
+    const {
+      setCheckoutState
+    } = this.props;
+
+    const totalCost = this.calculateCartTotal();
+
+    if (totalCost === 0) return null;
     return (
       <div id='cart-total'>
-        Cart Total $ {totalCost}
-        <div>
-          <button
-            onClick={() => {
-              setCheckoutState('confirmationNumber', this.generateId());
-              setCheckoutState('deliveryDate', this.calculateDeliveryDate(10));
-              setCheckoutState('purchased', true);
-            }}>Confirm Purchase
-          </button>
-        </div>
+        <div>Cart Total $ {totalCost}</div>
+        <button
+          id='confirm-purchase'
+          className='no-style-button'
+          onClick={() => {
+            setCheckoutState('confirmationNumber', this.generateId());
+            setCheckoutState('deliveryDate', this.calculateDeliveryDate(10));
+            setCheckoutState('purchased', true);
+          }}>Confirm Purchase
+        </button>
       </div>
     );
   };
 
+  // Show purchased items (for listing on receipt)
   renderPurchasedItems = () => {
     const {
       checkout: {
@@ -140,7 +161,7 @@ class _Checkout extends Component {
       const item = cart[key];
 
       return (
-        <div key={key} id='purchased-item'>
+        <div key={key} className='purchaed-item'>
           <div>Item: {item.name}</div>
           <div>Qty: {item.quantity}</div>
           <div>Item Total: {item.quantity * item.price}</div>
@@ -164,34 +185,41 @@ class _Checkout extends Component {
 
     if (purchased) {
       return (
-        <div>
-          <div>
-            Thanks for your purchase! Please allow up to 10 days for your custom BRAVO snowboard to be hand crafted.
+        <div id='receipt-screen'>
+          <img id='checkout-background' src='/images/checkoutBackground.jpg' alt='' />
+          <div id='receipt-info'>
+            <h2>Thanks for your purchase!</h2>
+            <div id='thanks-message'>
+              Please allow up to 10 days for your custom BRAVO snowboard to be hand crafted.
+            </div>
+            {deliveryDate ? <div>Delivery guaranteed by: <b>{deliveryDate.toDateString()}</b></div> : null}
+            {confirmationNumber ? <div>Your confirmation number is: <b>{confirmationNumber}</b></div> : null}
+            <h2>Your Order:</h2>
+            {this.renderPurchasedItems()}
+            <h4>Cart Total ${this.calculateCartTotal()}</h4>
+            <div id='final-options-container'>
+              <button className='final-options' onClick={this.shopMore}>Shop More</button>
+              <button className='final-options' onClick={this.signOut}>Sign Out</button>
+            </div>
           </div>
-          {deliveryDate ? <div>Delivery guaranteed by {deliveryDate.toDateString()}</div> : null}
-          {confirmationNumber ? <div>Your confirmation number is: {confirmationNumber}</div> : null}
-          <h1>Your Order:</h1>
-          {this.renderPurchasedItems()}
-          {this.renderCartTotal()}
-          <button onClick={this.shopMore}>Shop More</button>
-          <button onClick={this.signOut}>Sign Out</button>
         </div>
       );
     }
 
     return (
       <div id='checkout-screen'>
+        <img id='checkout-background' src='/images/checkoutBackground.jpg' alt='' />
         <div id='checkout-header-container'>
           <button className='no-style-button' onClick={goToShop}>
             <img id='back-button' src="./images/arrowLeft.svg" alt='Go Back' />
             <img id='checkout-header' src='./images/title.svg' alt='' />
           </button>
         </div>
-        {(cartKeys.length < 1) ? <button id='empty-cart-button' onClick={goToShop} className='no-style-button'>CART IS EMPTY - RETURN TO SNOWROOM?</button> : null}
+        {(cartKeys.length < 1) ? <button id='empty-cart' onClick={goToShop} className='no-style-button'>CART IS EMPTY - RETURN TO SNOWROOM?</button> : null}
         <div id='cart-items'>
           {this.renderCartItems()}
+          {this.renderCartTotal()}
         </div>
-        {this.renderCartTotal()}
       </div>
     );
   }

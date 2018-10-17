@@ -110,6 +110,7 @@ const reducer = (state = initialState, action = {}) => {
         distance: 0.1
       };
 
+      // Depending on what view the 3D model is currently in, toggling it to the next view sets certain defaults
       switch (state.unityViewAngle) {
         case 'perspective':
           if (controlMode === 'tumble') {

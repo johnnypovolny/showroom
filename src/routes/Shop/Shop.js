@@ -40,6 +40,9 @@ class _Shop extends Component {
     toggleUnityViewAngle: PropTypes.func.isRequired
   };
 
+  // When shop screen mounts, load either the design that is set as the currently viewed design in the state of the shop duck,
+  // or load the first design in the list of designs. Loading the design means enabling the unity main camera,
+  // loading the 3D model in Unity and setting the material, then loading a texture for Unity to display on that geometry.
   componentDidMount() {
     window.ReceiveThumbnail = this.receiveThumbnail;
     const {
@@ -79,6 +82,7 @@ class _Shop extends Component {
     });
   }
 
+  // Latest version of Unity mandates that the camera be disabled when not displaying the unity canvas element.
   componentWillUnmount() {
     const {
       unity: {
@@ -90,6 +94,7 @@ class _Shop extends Component {
     unityDisableCamera(master);
   }
 
+  // Change to a different design from the list in the shop duck.
   showDesign = (design) => {
     const {
       unity: {
@@ -112,6 +117,7 @@ class _Shop extends Component {
       });
   };
 
+  // Fire off a thumbnail generation request to start the 'add to cart' process.
   addToCart = () => {
     const {
       unity: {
@@ -122,6 +128,7 @@ class _Shop extends Component {
     sendMessage(master, 'genThumbnail');
   };
 
+  // Helper function for converting binary array data into a base64 string.
   unityHeapDataToBase64 = (pointer, length) => {
     const {
       unity
@@ -138,6 +145,9 @@ class _Shop extends Component {
     return btoa(binary);
   };
 
+  // Callback for unity when thumbnail generation is done. We add access the thumbnail
+  // data from the heap, convert the binary array to base64, store it on the design,
+  // and add that design to the shopping cart as a purchase item.
   receiveThumbnail = (pointer, length) => {
     const {
       shop: {
@@ -158,12 +168,14 @@ class _Shop extends Component {
     setTimeout(() => { setShopState('addedToCart', false); }, 3000);
   };
 
+  // Render the arrows and dots to carousel between the different designs
   renderDesignChangeControls = () => {
     const {
       shop: {
         designs,
-        displayedDesign
-      }
+        displayedDesign,
+      },
+      setShopState
     } = this.props;
 
     const designCount = designs.length;
@@ -176,6 +188,7 @@ class _Shop extends Component {
           onClick={() => {
             const newIndex = index === 0 ? designCount - 1 : index - 1;
 
+            setShopState('addedToCart', false);
             this.showDesign(designs[newIndex]);
           }}>
           <img className='arrow-image' src="./images/left-arrow.png" alt='Left' />
@@ -186,7 +199,10 @@ class _Shop extends Component {
               key={`Design${design.index}`}
               id={index === design.index ? 'dot-active' : null}
               className='dot'
-              onClick={() => this.showDesign(design)} />)
+              onClick={() => {
+                setShopState('addedToCart', false);
+                this.showDesign(design);
+              }} />)
           )
         }
         <button
@@ -194,6 +210,7 @@ class _Shop extends Component {
           onClick={() => {
             const newIndex = (index + 1) % designCount;
 
+            setShopState('addedToCart', false);
             this.showDesign(designs[newIndex]);
           }}>
           <img className='arrow-image' src="./images/right-arrow.png" alt='Right' />
@@ -202,6 +219,7 @@ class _Shop extends Component {
     );
   };
 
+  // Render info about the snowboard design being viewed
   renderDesignDetails = () => {
     const {
       shop: {
@@ -243,6 +261,7 @@ class _Shop extends Component {
     );
   };
 
+  // Render shopping cart 'go to checkout' button and item count
   renderCartButton() {
     const {
       checkout: {

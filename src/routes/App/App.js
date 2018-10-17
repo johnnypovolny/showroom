@@ -20,6 +20,7 @@ class _App extends Component {
     location: PropTypes.object.isRequired
   };
 
+  // Set empty arrow function for unity texture loaded callback
   componentDidMount() {
     window.textureLoaded = () => {};
   }

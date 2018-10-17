@@ -3,11 +3,12 @@ service: snowroom
 plugins:
   - serverless-s3-sync
 custom:
-  siteName: snowroom.bravo.com
+  bucketName: snowroom.johnnypovolny.com
+  hostedZoneName: johnnypovolny.com
   aliasHostedZoneId: Z3BJ6K6RIION7M   # us-west-2
   aliasDNSName: s3-website-us-west-2.amazonaws.com
   s3Sync:
-    - bucketName: ${self:custom.siteName}
+    - bucketName: ${self:custom.bucketName}
       localDir: dist
 
 provider:
@@ -23,7 +24,7 @@ resources:
       Type: AWS::S3::Bucket
       Properties:
         AccessControl: PublicRead
-        BucketName: ${self:custom.siteName}
+        BucketName: ${self:custom.bucketName}
         WebsiteConfiguration:
           IndexDocument: index.html
     StaticSiteS3BucketPolicy:
@@ -54,7 +55,7 @@ resources:
             AliasTarget:
               DNSName: ${self:custom.aliasDNSName}
               HostedZoneId: ${self:custom.aliasHostedZoneId}
-            HostedZoneName: ${self:custom.siteName}.
+            HostedZoneName: ${self:custom.hostedZoneName}.
             Name:
               Ref: StaticSite
             Type: 'A'

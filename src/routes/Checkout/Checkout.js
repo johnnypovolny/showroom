@@ -164,7 +164,7 @@ class _Checkout extends Component {
         <div key={key} className='purchaed-item'>
           <div>Item: {item.name}</div>
           <div>Qty: {item.quantity}</div>
-          <div>Item Total: {item.quantity * item.price}</div>
+          <div>Item Total: ${item.quantity * item.price}</div>
         </div>
       );
     });
@@ -186,7 +186,7 @@ class _Checkout extends Component {
     if (purchased) {
       return (
         <div id='receipt-screen'>
-          <img id='checkout-background' src='/images/checkoutBackground.jpg' alt='' />
+          <img className='final-screens-background' src='/images/receiptBackground.jpg' alt='' />
           <div id='receipt-info'>
             <h2>Thanks for your purchase!</h2>
             <div id='thanks-message'>
@@ -208,11 +208,11 @@ class _Checkout extends Component {
 
     return (
       <div id='checkout-screen'>
-        <img id='checkout-background' src='/images/checkoutBackground.jpg' alt='' />
+        <img className='final-screens-background' src='/images/checkoutBackground.jpg' alt='' />
         <div id='checkout-header-container'>
           <button className='no-style-button' onClick={goToShop}>
             <img id='back-button' src="./images/arrowLeft.svg" alt='Go Back' />
-            <img id='checkout-header' src='./images/title.svg' alt='' />
+            <img id='checkout-header' src='./images/titleBlue.svg' alt='' />
           </button>
         </div>
         {(cartKeys.length < 1) ? <button id='empty-cart' onClick={goToShop} className='no-style-button'>CART IS EMPTY - RETURN TO SNOWROOM?</button> : null}

@@ -1,0 +1,30 @@
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" width="519.17" height="384.89" viewBox="0 0 519.17 384.89">
+  <defs>
+    <style>
+      .cls-1 {
+        font-size: 78.11px;
+        fill: #649696;
+        font-family: SignPainter-HouseScript, SignPainter;
+        text-decoration: underline;
+      }
+
+      .cls-2 {
+        letter-spacing: -0.09em;
+      }
+
+      .cls-3 {
+        letter-spacing: -0.02em;
+      }
+
+      .cls-4 {
+        letter-spacing: -0.04em;
+      }
+
+      .cls-5 {
+        letter-spacing: -0.01em;
+      }
+    </style>
+  </defs>
+  <title>title</title>
+  <text class="cls-1" transform="matrix(1.17, -0.56, 0.22, 0.98, 200.45, 190.16)"><tspan class="cls-2">T</tspan><tspan x="24.45" y="0" xml:space="preserve">HE </tspan><tspan class="cls-3" x="-113.92" y="93.73">S</tspan><tspan x="-80.8" y="93.73">N</tspan><tspan class="cls-4" x="-44.95" y="93.73">O</tspan><tspan x="-6.05" y="93.73">W</tspan><tspan class="cls-5" x="43.16" y="93.73">R</tspan><tspan x="78.15" y="93.73">O</tspan><tspan class="cls-3" x="120.09" y="93.73">O</tspan><tspan x="160.48" y="93.73">M</tspan></text>
+</svg>

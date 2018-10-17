@@ -1,7 +1,7 @@
 # Snowroom
 
 A mock showroom app for consumers to peruse and purchase different colorways of a snowboard. 
-All development (as well as a minimal UX/UI design) was done by the creator, Johnny Povolny, 
+All development (as well as a minimal UX/UI design and logos) was done by the creator, Johnny Povolny, 
 as sample code to demonstrate expertise in the latest front-end technologies for prospective clients 
 and employers. 
 

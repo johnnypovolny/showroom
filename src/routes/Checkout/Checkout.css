@@ -3,13 +3,13 @@
     font-family: 'Raleway', sans-serif;
 }
 
-#checkout-background{
+.final-screens-background{
     position: absolute;
     top: 0;
     left: 0;
     height: 100%;
     width: 100%;
-    opacity: 0.4;
+    opacity: 0.5;
     object-fit: cover;
 }
 

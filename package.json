@@ -51,6 +51,7 @@
     "file-loader": "^1.1.11",
     "react-hot-loader": "^4.3.3",
     "resolve-url-loader": "^3.0.0",
+    "serverless-s3-sync": "^1.7.0",
     "style-loader": "^0.21.0",
     "url-loader": "^1.0.1",
     "webpack": "^4.16.0",

@@ -1,0 +1,73 @@
+%welcome-image {
+  width: 100%;
+  object-fit: cover;
+}
+
+#rider{
+  @extend %welcome-image;
+  height: 60%;
+}
+
+#boards{
+  @extend %welcome-image;
+  height: 40%;
+  opacity: 0.8;
+}
+
+#title-container{
+  @extend %logo-container;
+  top: 20%;
+  right: 10%;
+}
+
+#title-container-mobile{
+  @extend %logo-container;
+  top: 0;
+  right: 0;
+}
+
+#title{
+  max-width: 60%;
+}
+
+%welcome-message{
+  @extend .no-style-button;
+  display: inline-block;
+  position: absolute;
+  top: 80%;
+}
+
+#loading-message{
+  @extend %welcome-message;
+  width: 50%;
+  left: 45%;
+  animation: disappearAppear 2s infinite;
+  object-fit: contain;
+}
+
+#start-message{
+  @extend %welcome-message;
+  width: 30%;
+  left: 55%;
+  padding: 5px 0 0 0;
+  border: thin solid grey;
+  border-radius: 20%;
+
+  :hover {
+    opacity: .5;
+  }
+}
+
+#mobile-message {
+  position: absolute;
+  top: 58%;
+  left: 0;
+  right: 0;
+  min-height: 5%;
+  border-radius: 2%;
+  padding: 5px 10px 5px 10px;
+  text-align: center;
+  font-size: calc(2vw + 5px);
+  vertical-align: middle;
+  background: rgba(255, 255, 255, 1);
+}

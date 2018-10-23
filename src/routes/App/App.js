@@ -6,7 +6,7 @@ import Welcome from '../Welcome/Welcome';
 import Shop from '../Shop/Shop';
 import Checkout from '../Checkout/Checkout';
 import UnityMaster from '../../components/UnityMaster/UnityMaster';
-import './App.css';
+import './App.scss';
 
 const mapStateToProps = (state) => ({
   location: state.location

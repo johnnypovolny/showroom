@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import * as indexActions from '../index';
 import * as checkoutActions from '../../state/routes/checkout';
 import CartItem from '../../components/CartItem/CartItem';
-import './Checkout.css';
 
 const mapStateToProps = (state) => ({
   checkout: state.routes.checkout
@@ -32,10 +31,13 @@ class _Checkout extends Component {
 
   componentWillUnmount() {
     const {
+      checkout: {
+        purchased
+      },
       resetCheckoutState
     } = this.props;
 
-    resetCheckoutState();
+    if (purchased) resetCheckoutState();
   }
 
   // Figure out the total cost of all items in the cart
@@ -137,7 +139,6 @@ class _Checkout extends Component {
         <div>Cart Total $ {totalCost}</div>
         <button
           id='confirm-purchase'
-          className='no-style-button'
           onClick={() => {
             setCheckoutState('confirmationNumber', this.generateId());
             setCheckoutState('deliveryDate', this.calculateDeliveryDate(10));
@@ -161,7 +162,7 @@ class _Checkout extends Component {
       const item = cart[key];
 
       return (
-        <div key={key} className='purchaed-item'>
+        <div key={key} className='purchased-item'>
           <div>Item: {item.name}</div>
           <div>Qty: {item.quantity}</div>
           <div>Item Total: ${item.quantity * item.price}</div>
@@ -185,7 +186,7 @@ class _Checkout extends Component {
 
     if (purchased) {
       return (
-        <div id='receipt-screen'>
+        <div className='route'>
           <img className='final-screens-background' src='/images/receiptBackground.jpg' alt='' />
           <div id='receipt-info'>
             <h2>Thanks for your purchase!</h2>
@@ -207,7 +208,7 @@ class _Checkout extends Component {
     }
 
     return (
-      <div id='checkout-screen'>
+      <div className='route'>
         <img className='final-screens-background' src='/images/checkoutBackground.jpg' alt='' />
         <div id='checkout-header-container'>
           <button className='no-style-button' onClick={goToShop}>
@@ -215,7 +216,7 @@ class _Checkout extends Component {
             <img id='checkout-header' src='./images/titleBlue.svg' alt='' />
           </button>
         </div>
-        {(cartKeys.length < 1) ? <button id='empty-cart' onClick={goToShop} className='no-style-button'>CART IS EMPTY - RETURN TO SNOWROOM?</button> : null}
+        {(cartKeys.length < 1) ? <button id='empty-cart' onClick={goToShop}>CART IS EMPTY - RETURN TO SNOWROOM?</button> : null}
         <div id='cart-items'>
           {this.renderCartItems()}
           {this.renderCartTotal()}

@@ -8,7 +8,6 @@ import * as checkoutActions from '../../state/routes/checkout';
 import * as unityActions from '../../state/modules/unity';
 import * as indexActions from '../index';
 import { loadModel, loadTexture, sendMessage } from '../../utils/unityUtils';
-import './Shop.css';
 
 const mapStateToProps = (state) => ({
   shop: state.routes.shop,
@@ -184,20 +183,20 @@ class _Shop extends Component {
     return (
       <div id='design-change-controls-container'>
         <button
-          className='design-change-arrow'
+          className='no-style-button'
           onClick={() => {
             const newIndex = index === 0 ? designCount - 1 : index - 1;
 
             setShopState('addedToCart', false);
             this.showDesign(designs[newIndex]);
           }}>
-          <img className='arrow-image' src="./images/left-arrow.png" alt='Left' />
+          <img src="./images/left-arrow.png" alt='Left' />
         </button>
         {
           designs.map((design) => (
             <span
               key={`Design${design.index}`}
-              id={index === design.index ? 'dot-active' : null}
+              id={index === design.index ? 'dot-curr-design' : null}
               className='dot'
               onClick={() => {
                 setShopState('addedToCart', false);
@@ -206,14 +205,14 @@ class _Shop extends Component {
           )
         }
         <button
-          className='design-change-arrow'
+          className='no-style-button'
           onClick={() => {
             const newIndex = (index + 1) % designCount;
 
             setShopState('addedToCart', false);
             this.showDesign(designs[newIndex]);
           }}>
-          <img className='arrow-image' src="./images/right-arrow.png" alt='Right' />
+          <img src="./images/right-arrow.png" alt='Right' />
         </button>
       </div>
     );
@@ -249,8 +248,8 @@ class _Shop extends Component {
             ? null
             : (
               <button
-                id={addedToCart ? 'added-to-cart' : 'add-to-cart'}
                 className='no-style-button'
+                id={addedToCart ? 'added-to-cart' : 'add-to-cart'}
                 disabled={addedToCart}
                 onClick={this.addToCart}>
                 {addedToCart ? 'Added to Cart' : 'Add to Cart'}
@@ -275,7 +274,7 @@ class _Shop extends Component {
 
     if (Object.keys(cart).length < 1) return;
     return (
-      <button id='go-to-checkout' className='no-style-button' onClick={goToCheckout}>
+      <button id='go-to-checkout' onClick={goToCheckout}>
         <img src='./images/shoppingCart.svg' alt='Checkout' />
         <span>{totalItems}</span>
       </button>
@@ -290,9 +289,9 @@ class _Shop extends Component {
     } = this.props;
 
     return (
-      <div id='shop-screen'>
+      <div id='shop-screen' className='route'>
         <div id='shop-header-container'>
-          <img id='shop-header' src='./images/title.svg' alt='' />
+          <img src='./images/title.svg' alt='' />
         </div>
         <UnityControls
           unity={unity}

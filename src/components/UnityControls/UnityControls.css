@@ -5,12 +5,15 @@
     right: 12%;
 }
 .unity-control-button {
-    position: relative;
+    @extend .no-style-button
     display: block;
+    position: relative;
     outline: none;
     border: none;
     background: transparent;
     width: 100%;
+
+
 }
 
 .unity-control-button:active {

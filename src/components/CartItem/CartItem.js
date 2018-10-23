@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import './CartItem.css';
 
 class CartItem extends Component {
   static propTypes = {
@@ -23,7 +22,7 @@ class CartItem extends Component {
 
     return (
       <div className='cart-item'>
-        <img className='cart-item-image' src={snapshotBase64} alt='' />
+        <img src={snapshotBase64} alt='' />
         <div className='cart-item-info'>
           <div>Online Price: ${price}</div>
           <span>Quantity</span>

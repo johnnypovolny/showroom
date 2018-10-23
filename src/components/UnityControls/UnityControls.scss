@@ -1,0 +1,19 @@
+#unity-controls-container {
+  display: inline-block;
+  position: absolute;
+  top: 14%;
+  right: 12%;
+
+  .unity-control-button {
+    @extend .no-style-button;
+    display: block;
+    width: 100%;
+
+    &:active{
+      opacity: 0.5;
+    }
+    &:disabled{
+      opacity: 0.5;
+    }
+  }
+}

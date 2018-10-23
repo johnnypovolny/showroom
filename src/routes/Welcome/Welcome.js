@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import * as welcomeActions from '../../state/routes/welcome';
 import * as indexActions from '../index';
-import './Welcome.css';
 
 const mapStateToProps = (state) => ({
   welcome: state.routes.welcome,
@@ -55,7 +54,7 @@ class _Welcome extends Component {
 
     if (mobileOrTablet) {
       return (
-        <div id='welcome-screen'>
+        <div className='route'>
           <img id='rider' src='./images/rider.jpg' alt='' />
           <img id='boards' src='./images/boards.png' alt='' />
           <div id='title-container-mobile'>
@@ -67,7 +66,7 @@ class _Welcome extends Component {
     }
 
     return (
-      <div id='welcome-screen'>
+      <div className='route'>
         <img id='rider' src='./images/rider.jpg' alt='' />
         <img id='boards' src='./images/boards.png' alt='' />
         <div id='title-container'>
@@ -79,7 +78,7 @@ class _Welcome extends Component {
               </div>
             )
             : (
-              <button id='start-message' className='no-style-button' onClick={goToShop}>
+              <button id='start-message' onClick={goToShop}>
                 <img src='./images/subtitle-start.svg' alt='Shop Decks' />
               </button>
             )

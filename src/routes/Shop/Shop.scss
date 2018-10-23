@@ -1,0 +1,90 @@
+#shop-screen{
+  text-align: center;
+}
+
+#shop-header-container{
+  @extend %logo-container;
+  top: 0%;
+  left: 40%;
+  right: 40%;
+
+  img{
+    display: inline-block;
+    max-width: 100%;
+  }
+}
+
+#design-info{
+  display:block;
+  text-align: left;
+  position: absolute;
+  top: 60%;
+  left: 5%;
+  max-width: 20%;
+  font-size: calc(.6vw + 5px);
+
+  h2{
+    font-family: 'SaintFont', 'Raleway', sans-serif;
+  }
+}
+
+// Buttons
+%design-button{
+  display:block;
+  margin: .5vh auto;
+}
+
+#add-to-cart{
+  @extend %design-button;
+  border: thin grey solid;
+  border-radius: 45%;
+}
+
+#added-to-cart{
+  @extend %design-button;
+  animation: appearDisappear 3s 1;
+}
+
+#go-to-checkout{
+  @extend .no-style-button;
+  position: absolute;
+  top: 4%;
+  right: 1%;
+
+  img{
+    width: 30px;
+    height: 30px;
+    vertical-align: middle;
+  }
+}
+
+// Design change controls
+#design-change-controls-container {
+  position: absolute;
+  width: 100%;
+  top: 90%;
+
+  img{
+    height: 40px;
+    vertical-align: middle;
+  }
+
+  .dot {
+    display: inline-block;
+    height: 15px;
+    width: 15px;
+    vertical-align: middle;
+    margin: 0 2px 0 2px;
+    border-radius: 50%;
+    background: #bbb;
+  }
+
+  #dot-curr-design{
+    background: #717171;
+  }
+
+}
+
+
+
+

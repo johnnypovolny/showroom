@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { sendMessage } from '../../utils/unityUtils';
-import './UnityControls.css';
 
 class UnityControls extends Component {
   static propTypes = {
@@ -81,7 +80,7 @@ class UnityControls extends Component {
 
     return (
       <div id="unity-controls-container">
-        <button className="unity-control-button" onClick={() => this.toggleViewAngle()}>
+        <button className='unity-control-button' onClick={() => this.toggleViewAngle()}>
           <img src='./images/toggleView.png' id='toggle-view' alt="Toggle view" />
         </button>
         <button className="unity-control-button" onClick={() => this.homeView()}>

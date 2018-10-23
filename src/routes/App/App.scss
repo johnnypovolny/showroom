@@ -1,0 +1,62 @@
+#main-app {
+  position: absolute;
+  top:0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  text-align: center;
+  overflow: hidden;
+  user-select: none;
+  background: #f8f8f8;
+  font-family: 'Raleway', sans-serif;
+
+  .route{
+    z-index: 1;
+  }
+}
+
+.no-style-button{
+  z-index:2;
+  margin: 5px 0 0 0;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: calc(0.6vw + 5px);
+
+  &:hover {
+    opacity: .5;
+  }
+}
+
+%logo-container{
+  display: inline-block;
+  position: absolute;
+}
+
+@mixin flickerAnimation($start, $end) {
+  0%   { opacity:$start; }
+  50%  { opacity:$end;   }
+  100% { opacity:$start; }
+}
+
+@keyframes disappearAppear{
+  @include flickerAnimation(1, 0)
+}
+
+@keyframes appearDisappear{
+  @include flickerAnimation(0, 1)
+}
+
+@import url(//fonts.googleapis.com/css?family=Raleway);
+
+@font-face {
+  font-family: 'SaintFont';
+  src: url('/fonts/SAINT_FONT.ttf') format('truetype')
+}
+
+@import "../Welcome/Welcome";
+@import "../Shop/Shop";
+@import "../Checkout/Checkout";
+@import "../../components/CartItem/CartItem";
+@import "../../components/UnityControls/UnityControls";

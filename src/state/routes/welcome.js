@@ -1,7 +1,7 @@
 import { set } from '../../utils/objectUtils';
 
 const RESET_WELCOME_STATE = 'welcome/RESET_STATE';
-const SET_WELCOME_STATE = 'welcome/SET_APP_STATE';
+const SET_WELCOME_STATE = 'welcome/SET_WELCOME_STATE';
 
 export const resetWelcomeState = () => ({
   type: RESET_WELCOME_STATE

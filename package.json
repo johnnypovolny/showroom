@@ -1,8 +1,8 @@
 {
-  "name": "Inkwell",
-  "description": "Inkwell is a pre-print automation for Nike Layered Air",
-  "author": "Nike Innovation Tech",
-  "license": "Property of Advanced Innovation Technology division, Nike, Inc. Usage by external parties prohibitied.",
+  "name": "Snowroom",
+  "description": "A mock showroom app for consumers to peruse and purchase different colorways of a snowboard",
+  "author": "Johnny Povolny",
+  "license": "None: Property of Johnny Povolny. Usage by external parties prohibitied.",
   "private": true,
   "version": "1.1.0",
   "main": "root.js",

@@ -8,7 +8,7 @@ and employers.
 
 ### Demo
 
-Access the live demo at: http://snowroom.johnnypovolny.com
+Access the live demo at: http://snowroom.codebravo.com
 
 ### Stack
 

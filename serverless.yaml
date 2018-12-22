@@ -3,8 +3,8 @@ service: snowroom
 plugins:
   - serverless-s3-sync
 custom:
-  bucketName: snowroom.johnnypovolny.com
-  hostedZoneName: johnnypovolny.com
+  bucketName: snowroom.codebravo.tech
+  hostedZoneName: codebravo.tech
   aliasHostedZoneId: Z3BJ6K6RIION7M   # us-west-2
   aliasDNSName: s3-website-us-west-2.amazonaws.com
   s3Sync:

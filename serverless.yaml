@@ -3,12 +3,14 @@ service: snowroom
 plugins:
   - serverless-s3-sync
 custom:
-  bucketName: snowroom.codebravo.tech
-  hostedZoneName: codebravo.tech
+  staticSiteBucket: snowroom.codebravo.tech
+  redirectionBucket: snowroom.johnnypovolny.com
+  staticSiteHostedZoneName: codebravo.tech
+  redirectionHostedZoneName: johnnypovolny.com
   aliasHostedZoneId: Z3BJ6K6RIION7M   # us-west-2
   aliasDNSName: s3-website-us-west-2.amazonaws.com
   s3Sync:
-    - bucketName: ${self:custom.bucketName}
+    - bucketName: ${self:custom.staticSiteBucket}
       localDir: dist
 
 provider:
@@ -20,18 +22,27 @@ provider:
 
 resources:
   Resources:
-    StaticSite:
+    StaticSiteBucket:
       Type: AWS::S3::Bucket
       Properties:
         AccessControl: PublicRead
-        BucketName: ${self:custom.bucketName}
+        BucketName: ${self:custom.staticSiteBucket}
         WebsiteConfiguration:
           IndexDocument: index.html
+    RedirectionBucket:
+      Type: AWS::S3::Bucket
+      Properties:
+        AccessControl: PublicRead
+        BucketName: ${self:custom.redirectionBucket}
+        WebsiteConfiguration:
+          RedirectAllRequestsTo: 
+            HostName: ${self:custom.staticSiteBucket}
+            Protocol: http
     StaticSiteS3BucketPolicy:
           Type: AWS::S3::BucketPolicy
           Properties:
             Bucket:
-              Ref: StaticSite
+              Ref: StaticSiteBucket
             PolicyDocument:
               Statement:
                 - Sid: PublicReadGetObject
@@ -44,18 +55,50 @@ resources:
                       "", [
                         "arn:aws:s3:::",
                         {
-                          "Ref": "StaticSite"
+                          "Ref": "StaticSiteBucket"
                         },
                         "/*"
                       ]
                     ]
-    DnsRecord:
+    RedirectionS3BucketPolicy:
+          Type: AWS::S3::BucketPolicy
+          Properties:
+            Bucket:
+              Ref: RedirectionBucket
+            PolicyDocument:
+              Statement:
+                - Sid: PublicReadGetObject
+                  Effect: Allow
+                  Principal: "*"
+                  Action:
+                  - s3:GetObject
+                  Resource:
+                    Fn::Join: [
+                      "", [
+                        "arn:aws:s3:::",
+                        {
+                          "Ref": "RedirectionBucket"
+                        },
+                        "/*"
+                      ]
+                    ]
+    DnsRecordStaticBucket:
           Type: "AWS::Route53::RecordSet"
           Properties:
             AliasTarget:
               DNSName: ${self:custom.aliasDNSName}
               HostedZoneId: ${self:custom.aliasHostedZoneId}
-            HostedZoneName: ${self:custom.hostedZoneName}.
+            HostedZoneName: ${self:custom.staticSiteHostedZoneName}.
             Name:
-              Ref: StaticSite
+              Ref: StaticSiteBucket
             Type: 'A'
+    DNSRecordRedirectionBucket:
+          Type: "AWS::Route53::RecordSet"
+          Properties:
+            AliasTarget:
+              DNSName: s3-website-us-west-2.amazonaws.com
+              HostedZoneId: ${self:custom.aliasHostedZoneId}
+            HostedZoneName: ${self:custom.redirectionHostedZoneName}.
+            Name:
+              Ref: RedirectionBucket
+            Type: 'A'    

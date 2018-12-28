@@ -1,7 +1,5 @@
 service: snowroom
 
-plugins:
-  - serverless-s3-sync
 custom:
   staticSiteBucket: snowroom.codebravo.tech
   redirectionBucket: snowroom.johnnypovolny.com
@@ -9,9 +7,6 @@ custom:
   redirectionHostedZoneName: johnnypovolny.com
   aliasHostedZoneId: Z3BJ6K6RIION7M   # us-west-2
   aliasDNSName: s3-website-us-west-2.amazonaws.com
-  s3Sync:
-    - bucketName: ${self:custom.staticSiteBucket}
-      localDir: dist
 
 provider:
   name: aws

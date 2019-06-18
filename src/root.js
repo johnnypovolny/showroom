@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux'
+import { Provider } from 'react-redux';
 import createHistory from 'history/createBrowserHistory';
 import createStore from './state/createStore';
 import App from './routes/App/App';
@@ -22,6 +22,7 @@ render(App);
 if (module.hot) {
   module.hot.accept('./routes/App/App', () => {
     const UpdatedApp = require('./routes/App/App').default;
+
     render(UpdatedApp);
   });
 }

@@ -1,3 +1,6 @@
 # Created by .ignore support plugin (hsz.mobi)
 dist/unity
 dist/bundle.js
+dist/*.gz
+
+node_modules

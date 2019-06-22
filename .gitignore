@@ -4,3 +4,5 @@ dist/bundle.js
 dist/*.gz
 
 node_modules
+
+.serverless/*

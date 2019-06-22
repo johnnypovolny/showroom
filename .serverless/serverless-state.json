@@ -1,0 +1,206 @@
+{
+  "service": {
+    "service": "snowroom",
+    "serviceObject": {
+      "name": "snowroom"
+    },
+    "provider": {
+      "stage": "demo",
+      "region": "us-west-2",
+      "variableSyntax": "\\${([ ~:a-zA-Z0-9._@'\",\\-\\/\\(\\)]+?)}",
+      "name": "aws",
+      "runtime": "nodejs8.10",
+      "timeout": 30,
+      "versionFunctions": true,
+      "remoteFunctionData": null,
+      "compiledCloudFormationTemplate": {
+        "AWSTemplateFormatVersion": "2010-09-09",
+        "Description": "The AWS CloudFormation template for this Serverless application",
+        "Resources": {
+          "ServerlessDeploymentBucket": {
+            "Type": "AWS::S3::Bucket"
+          },
+          "StaticSiteBucket": {
+            "Type": "AWS::S3::Bucket",
+            "Properties": {
+              "AccessControl": "PublicRead",
+              "BucketName": "snowroom.codebravo.tech",
+              "WebsiteConfiguration": {
+                "IndexDocument": "index.html",
+                "RoutingRules": [
+                  {
+                    "RedirectRule": {
+                      "HostName": "snowroom.codebravo.tech",
+                      "HttpRedirectCode": "307",
+                      "Protocol": "http",
+                      "ReplaceKeyWith": ""
+                    },
+                    "RoutingRuleCondition": {
+                      "HttpErrorCodeReturnedEquals": "404"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "StaticSiteS3BucketPolicy": {
+            "Type": "AWS::S3::BucketPolicy",
+            "Properties": {
+              "Bucket": {
+                "Ref": "StaticSiteBucket"
+              },
+              "PolicyDocument": {
+                "Statement": [
+                  {
+                    "Sid": "PublicReadGetObject",
+                    "Effect": "Allow",
+                    "Principal": "*",
+                    "Action": [
+                      "s3:GetObject"
+                    ],
+                    "Resource": {
+                      "Fn::Join": [
+                        "",
+                        [
+                          "arn:aws:s3:::",
+                          {
+                            "Ref": "StaticSiteBucket"
+                          },
+                          "/*"
+                        ]
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "DnsRecordStaticBucket": {
+            "Type": "AWS::Route53::RecordSet",
+            "Properties": {
+              "AliasTarget": {
+                "DNSName": "s3-website-us-west-2.amazonaws.com",
+                "HostedZoneId": "Z3BJ6K6RIION7M"
+              },
+              "HostedZoneName": "codebravo.tech.",
+              "Name": {
+                "Ref": "StaticSiteBucket"
+              },
+              "Type": "A"
+            }
+          }
+        },
+        "Outputs": {
+          "ServerlessDeploymentBucketName": {
+            "Value": {
+              "Ref": "ServerlessDeploymentBucket"
+            }
+          }
+        }
+      },
+      "coreCloudFormationTemplate": {
+        "AWSTemplateFormatVersion": "2010-09-09",
+        "Description": "The AWS CloudFormation template for this Serverless application",
+        "Resources": {
+          "ServerlessDeploymentBucket": {
+            "Type": "AWS::S3::Bucket"
+          }
+        },
+        "Outputs": {
+          "ServerlessDeploymentBucketName": {
+            "Value": {
+              "Ref": "ServerlessDeploymentBucket"
+            }
+          }
+        }
+      }
+    },
+    "custom": {
+      "staticSiteBucket": "snowroom.codebravo.tech",
+      "staticSiteHostedZoneName": "codebravo.tech",
+      "aliasHostedZoneId": "Z3BJ6K6RIION7M",
+      "aliasDNSName": "s3-website-us-west-2.amazonaws.com"
+    },
+    "pluginsData": {},
+    "functions": {},
+    "resources": {
+      "Resources": {
+        "StaticSiteBucket": {
+          "Type": "AWS::S3::Bucket",
+          "Properties": {
+            "AccessControl": "PublicRead",
+            "BucketName": "snowroom.codebravo.tech",
+            "WebsiteConfiguration": {
+              "IndexDocument": "index.html",
+              "RoutingRules": [
+                {
+                  "RedirectRule": {
+                    "HostName": "snowroom.codebravo.tech",
+                    "HttpRedirectCode": "307",
+                    "Protocol": "http",
+                    "ReplaceKeyWith": ""
+                  },
+                  "RoutingRuleCondition": {
+                    "HttpErrorCodeReturnedEquals": "404"
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "StaticSiteS3BucketPolicy": {
+          "Type": "AWS::S3::BucketPolicy",
+          "Properties": {
+            "Bucket": {
+              "Ref": "StaticSiteBucket"
+            },
+            "PolicyDocument": {
+              "Statement": [
+                {
+                  "Sid": "PublicReadGetObject",
+                  "Effect": "Allow",
+                  "Principal": "*",
+                  "Action": [
+                    "s3:GetObject"
+                  ],
+                  "Resource": {
+                    "Fn::Join": [
+                      "",
+                      [
+                        "arn:aws:s3:::",
+                        {
+                          "Ref": "StaticSiteBucket"
+                        },
+                        "/*"
+                      ]
+                    ]
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "DnsRecordStaticBucket": {
+          "Type": "AWS::Route53::RecordSet",
+          "Properties": {
+            "AliasTarget": {
+              "DNSName": "s3-website-us-west-2.amazonaws.com",
+              "HostedZoneId": "Z3BJ6K6RIION7M"
+            },
+            "HostedZoneName": "codebravo.tech.",
+            "Name": {
+              "Ref": "StaticSiteBucket"
+            },
+            "Type": "A"
+          }
+        }
+      },
+      "Outputs": {}
+    },
+    "layers": {}
+  },
+  "package": {
+    "artifactDirectoryName": "serverless/snowroom/demo/1561230636478-2019-06-22T19:10:36.478Z",
+    "artifact": ""
+  }
+}

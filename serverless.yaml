@@ -2,9 +2,7 @@ service: snowroom
 
 custom:
   staticSiteBucket: snowroom.codebravo.tech
-  redirectionBucket: snowroom.johnnypovolny.com
   staticSiteHostedZoneName: codebravo.tech
-  redirectionHostedZoneName: johnnypovolny.com
   aliasHostedZoneId: Z3BJ6K6RIION7M   # us-west-2
   aliasDNSName: s3-website-us-west-2.amazonaws.com
 
@@ -24,15 +22,14 @@ resources:
         BucketName: ${self:custom.staticSiteBucket}
         WebsiteConfiguration:
           IndexDocument: index.html
-    RedirectionBucket:
-      Type: AWS::S3::Bucket
-      Properties:
-        AccessControl: PublicRead
-        BucketName: ${self:custom.redirectionBucket}
-        WebsiteConfiguration:
-          RedirectAllRequestsTo: 
-            HostName: ${self:custom.staticSiteBucket}
-            Protocol: http
+          RoutingRules:
+          - RedirectRule:
+              HostName: ${self:custom.staticSiteBucket}
+              HttpRedirectCode: "307"
+              Protocol: http
+              ReplaceKeyWith: ''
+            RoutingRuleCondition:
+              HttpErrorCodeReturnedEquals: "404"
     StaticSiteS3BucketPolicy:
           Type: AWS::S3::BucketPolicy
           Properties:
@@ -55,28 +52,6 @@ resources:
                         "/*"
                       ]
                     ]
-    RedirectionS3BucketPolicy:
-          Type: AWS::S3::BucketPolicy
-          Properties:
-            Bucket:
-              Ref: RedirectionBucket
-            PolicyDocument:
-              Statement:
-                - Sid: PublicReadGetObject
-                  Effect: Allow
-                  Principal: "*"
-                  Action:
-                  - s3:GetObject
-                  Resource:
-                    Fn::Join: [
-                      "", [
-                        "arn:aws:s3:::",
-                        {
-                          "Ref": "RedirectionBucket"
-                        },
-                        "/*"
-                      ]
-                    ]
     DnsRecordStaticBucket:
           Type: "AWS::Route53::RecordSet"
           Properties:
@@ -87,13 +62,3 @@ resources:
             Name:
               Ref: StaticSiteBucket
             Type: 'A'
-    DNSRecordRedirectionBucket:
-          Type: "AWS::Route53::RecordSet"
-          Properties:
-            AliasTarget:
-              DNSName: s3-website-us-west-2.amazonaws.com
-              HostedZoneId: ${self:custom.aliasHostedZoneId}
-            HostedZoneName: ${self:custom.redirectionHostedZoneName}.
-            Name:
-              Ref: RedirectionBucket
-            Type: 'A'    

@@ -6,3 +6,5 @@ dist/*.gz
 node_modules
 
 .serverless/*
+
+*.cache

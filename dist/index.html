@@ -1,11 +1,47 @@
+<!DOCTYPE html>
 <html>
+
 <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Snowroom Board Shop</title>
+
+  <meta name="description" content="Snowroom Board Shop." />
+  <meta name="keywords"
+    content="snowroom, snow room, snowboards, 3D, unity, code bravo, code BRAVO, codebravo, codeBRAVO, codebravo llc, codeBRAVO llc, codebravo L.L.C, codeBRAVO L.L.C, johnny povolny, Johnny Povolny, full stack, full-stack, front end, back end, front-end, back-end, cloud, developer, programmer, digital nomad" />
+  <meta property="og:title" content="Snowroom" />
+  <meta property="og:type" content="website" />
+  <meta property="og:description" content="Board Shop by CodeBRAVO L.L.C." />
+  <meta property="og:image" content="https://snowroom.codebravo.tech/images/boards.png" />
+  <meta property="og:url" content="https://snowroom.codebravo.tech" />
+  <meta name="revisit-after" content="14 days" />
+
+  <!-- update the version number as needed -->
+  <script defer src="/__/firebase/8.4.1/firebase-app.js"></script>
+  <!-- include only the Firebase features as you need -->
+  <script defer src="/__/firebase/8.4.1/firebase-auth.js"></script>
+  <script defer src="/__/firebase/8.4.1/firebase-database.js"></script>
+  <script defer src="/__/firebase/8.4.1/firebase-messaging.js"></script>
+  <script defer src="/__/firebase/8.4.1/firebase-storage.js"></script>
+  <!-- initialize the SDK after all desired features are loaded -->
+  <script defer src="/__/firebase/init.js"></script>
+
 </head>
 
 <body>
   <div id="root"></div>
-  <!--App Code-->
-  <script src="./bundle.js.gz" ></script>
+
+  <script src="./bundle.js"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      try {
+        let app = firebase.app();
+      } catch (e) {
+        console.error(e);
+      }
+    });
+  </script>
 </body>
+
 </html>

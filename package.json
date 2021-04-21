@@ -8,7 +8,7 @@
   "main": "root.js",
   "scripts": {
     "dev": "webpack-dev-server --mode development",
-    "build": "webpack && rm dist/bundle.js",
+    "build": "webpack",
     "lint": "eslint -c .eslintrc.json bin src webpack",
     "deploy": "aws s3 sync ./dist s3://snowroom.codebravo.tech --delete && aws s3 cp s3://snowroom.codebravo.tech s3://snowroom.codebravo.tech --recursive --exclude '*' --include '*.gz' --metadata-directive REPLACE --content-encoding 'gzip'"
   },

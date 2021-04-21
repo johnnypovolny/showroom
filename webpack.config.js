@@ -1,7 +1,6 @@
 const webpack = require('webpack');
 const path = require('path');
 const environment = process.env.NODE_ENV || 'development';
-const CompressionPlugin = require('compression-webpack-plugin');
 
 console.log('Environment is:', environment);
 
@@ -70,13 +69,6 @@ module.exports = {
   plugins: [
     // Enable Hot Modules Replacement
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NamedModulesPlugin(),
-    new CompressionPlugin({
-      filename: '[path].gz[query]',
-      algorithm: 'gzip',
-      test: /\.js$|\.css$|\.html$/,
-      threshold: 10240,
-      minRatio: 0.8
-    })
+    new webpack.NamedModulesPlugin()
   ]
 };
